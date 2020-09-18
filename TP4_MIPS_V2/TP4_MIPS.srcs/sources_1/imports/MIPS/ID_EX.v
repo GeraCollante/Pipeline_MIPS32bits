@@ -17,6 +17,7 @@
 module ID_EX(input clk,
         	 input rst,
 	         input enable,
+	         input ctlj_out,
 	         input [1:0]  ctlwb_out, 
 	         input [2:0]  ctlm_out, 
 	         input [3:0]  ctlex_out,
@@ -26,6 +27,7 @@ module ID_EX(input clk,
 	         input [31:0] signext_out, 
 	         input [4:0]  instr_2016, 
 	         input [4:0]  instr_1511, 
+	         output reg        j_ctlout,
 	         output reg [1:0]  wb_ctlout,
 	         output reg [2:0]  m_ctlout,
 	         output reg [3:0]  ex_ctlout,
@@ -43,20 +45,21 @@ module ID_EX(input clk,
             );
 	
 	// Initialize
-	initial
-		begin
-			wb_ctlout     <= 2'b00;
-			m_ctlout      <= 3'b000;
-			ex_ctlout     <= 4'b0000;
-			npcout        <= {32{1'b0}};
-			rdata1out     <= {32{1'b0}};
-			rdata2out     <= {32{1'b0}};
-			s_extendout   <= {32{1'b0}};
-			instrout_2016 <= 5'b00000;
-			instrout_1511 <= 5'b00000;
-			// Forwarding
-			instrout_2521 <= 5'b00000;
-		end
+//	initial
+//		begin
+//			wb_ctlout     <= 2'b00;
+//			m_ctlout      <= 3'b000;
+//			ex_ctlout     <= 4'b0000;
+//			j_ctlout      <= 1'b0;
+//			npcout        <= {32{1'b0}};
+//			rdata1out     <= {32{1'b0}};
+//			rdata2out     <= {32{1'b0}};
+//			s_extendout   <= {32{1'b0}};
+//			instrout_2016 <= 5'b00000;
+//			instrout_1511 <= 5'b00000;
+//			// Forwarding
+//			instrout_2521 <= 5'b00000;
+//		end
 		
 	// Update
 	always @ (posedge clk)
@@ -65,6 +68,7 @@ module ID_EX(input clk,
             wb_ctlout     <= 2'b00;
 			m_ctlout      <= 3'b000;
 			ex_ctlout     <= 4'b0000;
+			j_ctlout      <= 1'b0;
 			npcout        <= {32{1'b0}};
 			rdata1out     <= {32{1'b0}};
 			rdata2out     <= {32{1'b0}};
@@ -79,6 +83,7 @@ module ID_EX(input clk,
             wb_ctlout     <= ctlwb_out;
 			m_ctlout      <= ctlm_out;
 			ex_ctlout     <= ctlex_out;
+			j_ctlout      <= ctlj_out;
 			npcout        <= npc;
 			rdata1out     <= readdat1;
 			rdata2out     <= readdat2;
