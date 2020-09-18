@@ -1,2 +1,2 @@
-# Pipeline_MIPS32bits
+# Pipeline MIPS32bits
 TP final ArqComp - Icomp - FCEFYN 
