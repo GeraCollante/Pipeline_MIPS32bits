@@ -89,7 +89,7 @@ PIPELINE pipeline(.clk(clk),
         
         forever begin
             begin
-                #17 btn = ~btn;
+                #24 btn = ~btn;
             end
         end
     end

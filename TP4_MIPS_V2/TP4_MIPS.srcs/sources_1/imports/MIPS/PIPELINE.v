@@ -42,7 +42,6 @@ module PIPELINE(input clk,
 	wire [4:0]  ID_EX_instrout_2016_wire;
 	wire [4:0]  ID_EX_instrout_1511_wire;
 	wire        ID_EX_halt_wire;
-	wire        jump_wire;
 	// Forwarding
 	wire [4:0]  ID_EX_instrout_2521_wire;
 	
@@ -75,18 +74,17 @@ module PIPELINE(input clk,
 	// Hazard Detection Unit wires
 	wire stall_wire;
 	
+	wire [5:0] shamt_wire;
 	wire [5:0] opcode_wire;
 	
 	I_FETCH FETCH(
 	   //Inputs
 	   .clk(clk),
 	   .rst(rst),
-	   .jump(jump_wire),
 	   .stall(stall_wire),
 	   .enable(enable_wire),
 	   .PCSrc(PCSrc_wire), 
 	   .enable_wr(enable_wr),
-	   .PCjump(ID_EX_IR_wire),
 	   .EX_MEM_NPC(EX_MEM_add_result_wire),
 	   .addr_wire(addr_bus),
 	   .instr_wire(instr_bus),
@@ -107,14 +105,14 @@ module PIPELINE(input clk,
 		.MEM_WB_Writereg(mem_Write_reg_wire), 
 		.MEM_WB_Writedata(wb_data_wire), 
 		// Outputs
-		.WB(ID_EX_WB_wire), 
-		.J(jump_wire),
+		.WB(ID_EX_WB_wire),
 		.M(ID_EX_M_wire), 
 		.EX(ID_EX_EX_wire), 
 		.NPC(ID_EX_NPC_wire), 
 		.rdata1out(ID_EX_rdata1out_wire), 
 		.rdata2out(ID_EX_rdata2out_wire), 
 		.IR(ID_EX_IR_wire),
+		.shamt_out(shamt_wire),
 		.opcode_out(opcode_wire),
 		.instrout_2016(ID_EX_instrout_2016_wire), 
 		.instrout_1511(ID_EX_instrout_1511_wire),

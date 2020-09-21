@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module ALU_CONTROL(
-    input [5:0] funct, 
+    input [5:0] funct,
     input [5:0] opcode,
     input [1:0] alu_op,
     output reg [3:0] select);

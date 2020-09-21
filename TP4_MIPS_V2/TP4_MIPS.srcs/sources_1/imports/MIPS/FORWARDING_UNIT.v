@@ -28,48 +28,60 @@ module FORWARDING_UNIT(
 	output reg [1:0] forward_a_sel,
 	output reg [1:0] forward_b_sel);
 	
-	reg [4:0] temp1;
-	reg [5:0] temp2;
-    reg [5:0] temp3;
-	
-	always @ *
-	begin
-		forward_a_sel = 2'b00;
-		forward_b_sel = 2'b00;
+	always @(*)
+  begin
+    forward_a_sel <= 2'b00;
+    forward_b_sel <= 2'b00;
+    if(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRs))
+    begin
+      forward_a_sel <= 2'b10;
+    end
+    if(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRt))
+    begin
+      forward_b_sel <= 2'b10;
+    end
+    if(MemWbRegWrite[1] && (MemWbRegRd != 0) && (ExMemRegisterRd != IdExRegisterRs) && (MemWbRegRd == IdExRegisterRs)) 
+    begin
+      forward_a_sel <= 2'b01;
+    end
+    if(MemWbRegWrite[1] && (MemWbRegRd != 0) && (ExMemRegisterRd != IdExRegisterRt) && (MemWbRegRd == IdExRegisterRt))
+    begin
+      forward_b_sel <= 2'b01;
+    end
+  end
+//	always @ *
+//	begin
+//		forward_a_sel = 2'b00;
+//		forward_b_sel = 2'b00;
 		
-		// EX Hazard
-		if (ExMemRegWrite[1] && 
-		    (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRs)) 
-			begin
-				forward_a_sel = 2'b10;
-			end
+//		// EX Hazard
+//		if (ExMemRegWrite[1] && 
+//		    (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRs)) 
+//			begin
+//				forward_a_sel = 2'b10;
+//			end
 		 
-		if (ExMemRegWrite[1] && 
-		    (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRt)) 
-			begin
-				forward_b_sel = 2'b10;
-			end
+//		if (ExMemRegWrite[1] && 
+//		    (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRt)) 
+//			begin
+//				forward_b_sel = 2'b10;
+//			end
 	
-		// MEM Hazard
-		if (MemWbRegWrite[1] && (MemWbRegRd != 0) && 
-		    !(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && (ExMemRegisterRd != IdExRegisterRs)) && 
-			 (MemWbRegRd == IdExRegisterRs)) 
-			begin
-				forward_a_sel = 2'b01;
-			end
-			
-		temp1 = MemWbRegWrite[1] && (MemWbRegRd != 0);
-		temp2 = !(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && 
-		    (ExMemRegisterRd != IdExRegisterRt));
-		temp3 = (MemWbRegRd == IdExRegisterRt);
+//		// MEM Hazard
+//		if (MemWbRegWrite[1] && (MemWbRegRd != 0) && 
+//		    !(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && (ExMemRegisterRd != IdExRegisterRs)) && 
+//			 (MemWbRegRd == IdExRegisterRs)) 
+//			begin
+//				forward_a_sel = 2'b01;
+//			end
 		 
-		if (MemWbRegWrite[1] && (MemWbRegRd != 0) && 
-		    !(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && 
-		    (ExMemRegisterRd != IdExRegisterRt)) && 
-			 (MemWbRegRd == IdExRegisterRt)) 
-			begin
-				forward_b_sel = 2'b01;
-			end
-
-	end						  
+//		if (MemWbRegWrite[1] && (MemWbRegRd != 0) && 
+//		    !(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && 
+//		    (ExMemRegisterRd != IdExRegisterRt)) && 
+//			 (MemWbRegRd == IdExRegisterRt)) 
+//			begin
+//				forward_b_sel = 2'b01;
+//			end
+        
+//	end
 endmodule

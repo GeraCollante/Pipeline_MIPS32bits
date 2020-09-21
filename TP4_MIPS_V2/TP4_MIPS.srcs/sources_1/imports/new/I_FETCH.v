@@ -20,8 +20,6 @@ module I_FETCH(
     input PCSrc,
     input rst,
     input stall,
-    input jump,
-    input wire [31:0] PCjump,
     input wire [31:0] EX_MEM_NPC, 
     input wire [31:0] addr_wire, 
     input wire [31:0] instr_wire,
@@ -36,7 +34,9 @@ module I_FETCH(
 	wire [31:0] mux_npc_wire;
 	wire [31:0] npc_wire;
     wire [31:0] pc_wire;
+    wire [31:0] PCjump_wire;
 	wire halt_wire;
+	wire J_wire;
 	
 	// Instantiate modules.
 //	MUX mux(
@@ -46,10 +46,10 @@ module I_FETCH(
 //	   .y(mux_npc_wire));
 
     THREE_ONE_MUX PC_MUX(
-		.a(EX_MEM_NPC), 
-		.b(PCjump), 
-		.c(npc_wire), 
-		.sel({PCSrc,jump}),
+		.a(EX_MEM_NPC),
+		.b(PCjump_wire),
+		.c(npc_wire),
+		.sel({PCSrc,J_wire}),
 		.y(mux_npc_wire));
 	
 	PC pc(
@@ -87,4 +87,10 @@ module I_FETCH(
 	   .npcout(IF_ID_NPC),
 	   .rs(IF_ID_rs),
 	   .rt(IF_ID_rt));
+	   
+   JUMP_UNIT JU(
+       .instruction(data_wire),
+       .J(J_wire),
+       .PCjump(PCjump_wire));
+       
 endmodule
