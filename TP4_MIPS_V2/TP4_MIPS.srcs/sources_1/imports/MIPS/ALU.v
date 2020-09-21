@@ -17,23 +17,43 @@
 module ALU(
     input [31:0] A, 
     input [31:0] B, 
-    input [2:0] control, 
+    input [3:0] control, 
     output reg zero, 
 	output reg [31:0] result);
 	
 	always @ *
 	begin
 		case (control)
-			3'b000:
-				result = A & B;
-			3'b001:
-				result = A | B;
-			3'b010:
-				result = A + B;
-			3'b110:
-				result = A - B;
-			3'b111:
-				result = (A < B) ? 1 : 0;
+			4'b0000:
+				result = A & B; // AND
+			4'b0001:
+				result = A | B; // OR
+			4'b0010:
+				result = A + B; // ADD
+//			4'b0011:
+//				result = ( B << shamt); // SLL
+//			4'b0100:
+//				result = ( B >> shamt); // SRL
+//			4'b0101:
+//				result = ( B >>> shamt); // SRA
+			4'b0110:
+				result = A - B; // SUB
+			4'b0111:
+				result = (A < B) ? 1 : 0;   //SLT
+			4'b1001:
+				result = (B << 16);   // LUI
+			4'b1010:
+				result = (A^B);      // XOR
+			4'b1011:
+				result = ~(A|B);      // NOR
+//			4'b1100:
+//				result = A + B;
+//			4'b1101:
+//				result = A + B;
+//			4'b1110:
+//				result = A + B;
+//			4'b1111:
+//				result = A + B;
 			default:
 				result = 32'bxxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx;
 		endcase

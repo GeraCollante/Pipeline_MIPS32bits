@@ -49,7 +49,7 @@ module I_FETCH(
 		.a(EX_MEM_NPC), 
 		.b(PCjump), 
 		.c(npc_wire), 
-		.sel({PCSrc,jump}), 
+		.sel({PCSrc,jump}),
 		.y(mux_npc_wire));
 	
 	PC pc(

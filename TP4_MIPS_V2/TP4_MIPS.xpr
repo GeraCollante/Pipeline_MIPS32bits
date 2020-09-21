@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="40" Path="/home/gerac/ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS_V2/TP4_MIPS.xpr">
+<Project Version="7" Minor="40" Path="/home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="e2d8a3761b2c4b33be3beade74d66f7e"/>
@@ -18,7 +18,7 @@
     <Option Name="CompiledLibDirRiviera" Val="$PCACHEDIR/compile_simlib/riviera"/>
     <Option Name="CompiledLibDirActivehdl" Val="$PCACHEDIR/compile_simlib/activehdl"/>
     <Option Name="BoardPart" Val=""/>
-    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../../.Xilinx/Vivado/2019.1/xhub/board_store"/>
+    <Option Name="BoardPartRepoPaths" Val="$PPRDIR/../../.Xilinx/Vivado/2019.1/xhub/board_store"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
@@ -33,7 +33,7 @@
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSABoardId" Val="basys3"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="547"/>
+    <Option Name="WTXSimLaunchSim" Val="565"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -326,7 +326,7 @@
       <Filter Type="Constrs"/>
       <File Path="$PSRCDIR/constrs_1/imports/src/Basys3.xdc">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP2/src/Basys3.xdc"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP2/src/Basys3.xdc"/>
           <Attr Name="ImportTime" Val="1593722641"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -341,7 +341,7 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/imports/MIPS/PIPELINE_tb.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/PIPELINE_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/PIPELINE_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -359,7 +359,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/MEM_WB_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/MEM_WB_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/MEM_WB_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -369,7 +369,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/D_MEM_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/D_MEM_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/D_MEM_tb.v"/>
           <Attr Name="ImportTime" Val="1596500140"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -379,7 +379,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/EX_MEM_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/EX_MEM_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/EX_MEM_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -389,7 +389,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/I_DECODE_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/I_DECODE_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/I_DECODE_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -399,7 +399,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/I_FETCH_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/I_FETCH_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/I_FETCH_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -409,7 +409,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/IF_ID_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/IF_ID_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/IF_ID_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -419,7 +419,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/INSTR_MEM_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/INSTR_MEM_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/INSTR_MEM_tb.v"/>
           <Attr Name="ImportTime" Val="1596500161"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -429,7 +429,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/PC_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/PC_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/PC_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -439,7 +439,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/INCR_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/INCR_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/INCR_tb.v"/>
           <Attr Name="ImportTime" Val="1596500140"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -449,7 +449,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/BOTTOM_MUX_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/BOTTOM_MUX_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/BOTTOM_MUX_tb.v"/>
           <Attr Name="ImportTime" Val="1596500140"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -459,7 +459,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/ALU_MUX_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ALU_MUX_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ALU_MUX_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -469,7 +469,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/CONTROL_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/CONTROL_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/CONTROL_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -479,7 +479,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/S_EXTEND_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/S_EXTEND_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/S_EXTEND_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -489,7 +489,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/ALU_CONTROL_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ALU_CONTROL_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ALU_CONTROL_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -499,7 +499,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/AND_Gate_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/AND_Gate_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/AND_Gate_tb.v"/>
           <Attr Name="ImportTime" Val="1596500139"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -509,7 +509,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/ID_EX_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ID_EX_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ID_EX_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -519,7 +519,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/ADDER_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ADDER_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/ADDER_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -529,7 +529,7 @@
       <File Path="$PSRCDIR/sim_1/imports/MIPS/REG_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/REG_tb.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP4_MIPS/TP4_MIPS.srcs/sim_1/imports/MIPS/REG_tb.v"/>
           <Attr Name="ImportTime" Val="1596500141"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>

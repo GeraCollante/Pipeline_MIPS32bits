@@ -31,6 +31,7 @@ module I_DECODE(
 	output [31:0] rdata1out,
 	output [31:0] rdata2out,
 	output [31:0] IR,
+	output [5:0]  opcode_out,
 	output [4:0]  instrout_2016,
 	output [4:0]  instrout_1511,
 	// Forwarding
@@ -82,6 +83,7 @@ module I_DECODE(
 		        .readdat1(REG_A_wire), 
 		        .readdat2(REG_B_wire), 
 		        .signext_out(EXT_OUT_wire), 
+		        .opcode(IF_ID_Instr[31:26]),
 		        .instr_2016(IF_ID_Instr[20:16]), 
 		        .instr_1511(IF_ID_Instr[15:11]), 
 		        .instr_2521(IF_ID_Instr[25:21]),
@@ -93,6 +95,7 @@ module I_DECODE(
 		        .rdata1out(rdata1out), 
 		        .rdata2out(rdata2out), 
 		        .s_extendout(IR),
+		        .opcode_out(opcode_out),
 		        .instrout_2016(instrout_2016),
 		        .instrout_1511(instrout_1511), 
 		        .instrout_2521(instrout_2521));

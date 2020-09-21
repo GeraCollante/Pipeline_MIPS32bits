@@ -25,6 +25,7 @@ module I_EXECUTE(
 	input  [31:0] rdata1in,
 	input  [31:0] rdata2in,
 	input  [31:0] IR,
+	input  [5:0]  opcode,
 	input  [4:0]  instrout_2016,
 	input  [4:0]  instrout_1511,	
 	
@@ -76,6 +77,7 @@ module I_EXECUTE(
 		
 	ALU_CONTROL alu_control(
 		.funct(IR[5:0]), 
+		.opcode(opcode),
 		.alu_op(EX[2:1]), 
 		.select(alu_control_out_wire));	
 		

@@ -118,8 +118,6 @@ set_property PACKAGE_PIN U18 [get_ports rst]
 	#set_property IOSTANDARD LVCMOS33 [get_ports btnR]
 #set_property PACKAGE_PIN U17 [get_ports btnD]						
 	#set_property IOSTANDARD LVCMOS33 [get_ports btnD]
- 
-
 
 ##Pmod Header JA
 ##Sch name = JA1

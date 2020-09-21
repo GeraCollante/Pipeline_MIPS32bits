@@ -188,12 +188,21 @@ def instruction_J(line):
     output.write(binary)
     output.write('\n')
 
+# Operaciones NOP
+def instruction_NOP(line):
+    if line[0] == 'nop':
+        binary = ""
+        binary = binary.zfill(32)
+        print( colored(binary, 'red'))
+        output.write(binary)
+        output.write('\n')
+
 loadDictionaries()
 
 contR=0
 contI=0
 contJ=0
-
+contNOP=0
 
 # Lee el código MIPS y lo traduce a código binary
 with open(mips_file,"r") as c:
@@ -259,8 +268,12 @@ with open(mips_file,"r") as c:
         elif line[0] in opArithmeticImmediate: 
             instruction_AritI(line)
             contR+=1
+        else:
+            instruction_NOP(line)
+            contNOP+=1
 
 print("contR:", contR)
 print("contI:", contI)
 print("contJ:", contJ)
-print("total:", contR+contJ+contI)
+print("contNOP:", contNOP)
+print("total:", contR+contJ+contI+contNOP)

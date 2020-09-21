@@ -259,7 +259,7 @@
     <Filter Type="Constrs"/>
     <File Path="$PSRCDIR/constrs_1/imports/src/Basys3.xdc">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../TP2/src/Basys3.xdc"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../ArqComp-bp/ArquitecturaDeComputadoras/TP2/src/Basys3.xdc"/>
         <Attr Name="ImportTime" Val="1593722641"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
