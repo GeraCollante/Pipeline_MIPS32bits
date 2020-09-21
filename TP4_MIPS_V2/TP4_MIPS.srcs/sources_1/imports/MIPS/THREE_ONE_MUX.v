@@ -23,9 +23,9 @@ module THREE_ONE_MUX(
     
 	always @ *
 		case (sel)
-			2'b00: y = c;
-			2'b01: y = b;
-			2'b10: y = a;
+			2'b00: y = c;    // NPC_WIRE
+			2'b01: y = b;    // JUMP
+			2'b10: y = a;    // EX_MEM_NPC
 			default: y = 0;
 		endcase
 endmodule

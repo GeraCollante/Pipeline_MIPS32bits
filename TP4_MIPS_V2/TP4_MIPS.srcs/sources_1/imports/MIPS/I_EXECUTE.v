@@ -49,7 +49,7 @@ module I_EXECUTE(
 	// Wires.				  
 	wire [31:0] add_out_wire;
 	wire [31:0] alu_mux_out_wire;
-	wire [2:0]  alu_control_out_wire;
+	wire [3:0]  alu_control_out_wire;
 	wire        alu_zero_wire;
 	wire [31:0] alu_result_wire;
 	wire [4:0]  bottom_mux_out_wire;

@@ -207,7 +207,7 @@ contNOP=0
 # Lee el código MIPS y lo traduce a código binary
 with open(mips_file,"r") as c:
 
-    numline = 1
+    numline = 0
     for line in c:
         # Comprueba si la línea es un comentario, si es así, ignora
         if line[0][0] == '#':
