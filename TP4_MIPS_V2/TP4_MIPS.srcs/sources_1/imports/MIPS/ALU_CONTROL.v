@@ -24,8 +24,13 @@ module ALU_CONTROL(
     begin
         case (alu_op) 
 			2'b00: 
+                if (opcode != 6'b111111) // NOT HALT
 				begin
-					select = 4'b0010;            // LW - SW - JAL
+					select = 4'b0010;    // LW - SW - JAL
+				end
+				else
+				begin
+				    select = 4'b1111;   // HALT
 				end
 			2'b01: 
 				begin
@@ -46,18 +51,18 @@ module ALU_CONTROL(
 							begin
 								select = 4'b0101;   // R sra
 							end
-//                        6'b000100: 
-//							begin
-//								select = 3'bxxx;   // R sllv
-//							end
-//                        6'b000110: 
-//							begin
-//								select = 3'bxxx;   // R srlv
-//							end
-//                        6'b000111: 
-//							begin
-//								select = 3'bxxx;   // R srav
-//							end
+                        6'b000100: 
+							begin
+								select = 4'b1100;   // R sllv
+							end
+                        6'b000110: 
+							begin
+								select = 4'b1101;   // R srlv
+							end
+                        6'b000111: 
+							begin
+								select = 4'b1110;   // R srav
+							end
                         6'b001000: 
 							begin
 								select = 4'b0010;   // R jr

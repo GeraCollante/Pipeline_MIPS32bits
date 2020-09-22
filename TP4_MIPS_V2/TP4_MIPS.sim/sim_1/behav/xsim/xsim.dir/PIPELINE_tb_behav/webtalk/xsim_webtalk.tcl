@@ -1,6 +1,6 @@
 webtalk_init -webtalk_dir /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/
 webtalk_register_client -client project
-webtalk_add_data -client project -key date_generated -value "Mon Sep 21 18:31:33 2020" -context "software_version_and_target_device"
+webtalk_add_data -client project -key date_generated -value "Tue Sep 22 01:09:20 2020" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "XSIM v2019.1 (64-bit)" -context "software_version_and_target_device"
 webtalk_add_data -client project -key build_version -value "2552052" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_platform -value "LIN64" -context "software_version_and_target_device"
@@ -14,11 +14,11 @@ webtalk_add_data -client project -key target_package -value "not_applicable" -co
 webtalk_add_data -client project -key target_speed -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key random_id -value "206c7a62-cadd-4bd4-9f52-df8309f3af07" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_id -value "e2d8a3761b2c4b33be3beade74d66f7e" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_iteration -value "534" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_iteration -value "572" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "ManjaroLinux" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "Manjaro Linux" -context "user_environment"
 webtalk_add_data -client project -key cpu_name -value "Intel(R) Core(TM) i3-4100M CPU @ 2.50GHz" -context "user_environment"
-webtalk_add_data -client project -key cpu_speed -value "2494.444 MHz" -context "user_environment"
+webtalk_add_data -client project -key cpu_speed -value "2494.443 MHz" -context "user_environment"
 webtalk_add_data -client project -key total_processors -value "1" -context "user_environment"
 webtalk_add_data -client project -key system_ram -value "8.000 GB" -context "user_environment"
 webtalk_register_client -client xsim
@@ -36,7 +36,7 @@ webtalk_add_data -client xsim -key Total_Nets -value "0" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Processes -value "120" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Instances -value "33" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Xilinx_HDL_Libraries_Used -value "secureip unimacro_ver unisims_ver " -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Time -value "2.35_sec" -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Memory -value "207712_KB" -context "xsim\\usage"
-webtalk_transmit -clientid 1189612182 -regid "" -xml /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
+webtalk_add_data -client xsim -key Compiler_Time -value "2.14_sec" -context "xsim\\usage"
+webtalk_add_data -client xsim -key Compiler_Memory -value "207928_KB" -context "xsim\\usage"
+webtalk_transmit -clientid 3275213172 -regid "" -xml /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm /home/gerac/Pipeline_MIPS32bits/TP4_MIPS_V2/TP4_MIPS.sim/sim_1/behav/xsim/xsim.dir/PIPELINE_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
 webtalk_terminate

@@ -25,6 +25,7 @@ module I_EXECUTE(
 	input  [31:0] rdata1in,
 	input  [31:0] rdata2in,
 	input  [31:0] IR,
+	input  [5:0]  shamt,
 	input  [5:0]  opcode,
 	input  [4:0]  instrout_2016,
 	input  [4:0]  instrout_1511,	
@@ -72,6 +73,7 @@ module I_EXECUTE(
 		.A(forward_mux_a_out_wire), 
 		.B(alu_mux_out_wire), 
 		.control(alu_control_out_wire), 
+		.shamt(shamt),
 		.zero(alu_zero_wire), 
 		.result(alu_result_wire));	
 		

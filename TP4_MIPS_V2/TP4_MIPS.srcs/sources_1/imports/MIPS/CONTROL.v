@@ -48,42 +48,42 @@
 				begin
 					WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0xx1;
+					EX = 4'b0111;
 					J  = 1'b0;
 				end
             6'b001010:   // I-Format: Set to 1 if Less Than Immediate (SLTI)
 				begin
 					WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0xx1;
+					EX = 4'b0111;
 					J  = 1'b0;
 				end
             6'b001100:   // I-Format: Bitwise AND Immediate (ANDI)
 				begin
 					WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0xx1;
+					EX = 4'b0111;
 					J  = 1'b0;
 				end
             6'b001101:   // I-Format: Bitwise OR Immediate (ORI)
 				begin
 					WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0xx1;
+					EX = 4'b0111;
 					J  = 1'b0;
 				end
             6'b001110:   // I-Format: Exclusive OR Immediate (XORI)
 				begin
 					WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0xx1;
+					EX = 4'b0111;
 					J  = 1'b0;
 				end
             6'b001111:   // I-Format: Load Upper Immediate (LUI)
 				begin
 					WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0xx1;
+					EX = 4'b0111;
 					J  = 1'b0;
 				end
 //            6'b100000:   // I-Format: Load Byte (LB)
