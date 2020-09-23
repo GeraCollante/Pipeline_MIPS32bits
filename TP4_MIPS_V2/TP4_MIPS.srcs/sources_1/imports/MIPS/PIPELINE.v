@@ -77,17 +77,31 @@ module PIPELINE(input clk,
 	wire [5:0] shamt_wire;
 	wire [5:0] opcode_wire;
 	
+	// Jump wires
+	wire J_wire;
+	wire [31:0] PCjump_wire;
+	
+	// Branch wires
+	wire branch_wire;
+    wire [31:0] PCbranch_wire;
+	
 	I_FETCH FETCH(
 	   //Inputs
 	   .clk(clk),
 	   .rst(rst),
 	   .stall(stall_wire),
 	   .enable(enable_wire),
-	   .PCSrc(PCSrc_wire), 
+//	   .PCSrc(PCSrc_wire), 
 	   .enable_wr(enable_wr),
 	   .EX_MEM_NPC(EX_MEM_add_result_wire),
 	   .addr_wire(addr_bus),
 	   .instr_wire(instr_bus),
+	   // Jump
+	   .J(J_wire),
+	   .PCjump(PCjump_wire),
+	   // Branch
+	   .branch(branch_wire),
+	   .PCbranch(PCbranch_wire),
 	   // Outputs
 	   .IF_ID_IR(IF_ID_IR_wire),
 	   .IF_ID_NPC(IF_ID_NPC_wire),
@@ -117,7 +131,14 @@ module PIPELINE(input clk,
 		.instrout_2016(ID_EX_instrout_2016_wire), 
 		.instrout_1511(ID_EX_instrout_1511_wire),
 		// Forwarding
-		.instrout_2521(ID_EX_instrout_2521_wire));
+		.instrout_2521(ID_EX_instrout_2521_wire),
+		// Jump
+		.J(J_wire),
+		.PCjump(PCjump_wire),
+		// Branch
+		.branch(branch_wire),
+		.PCbranch(PCbranch_wire)
+		);
 		
 	I_EXECUTE EXECUTE(
 		// Inputs
@@ -198,7 +219,15 @@ module PIPELINE(input clk,
         .IfIdRegisterRs(IF_ID_rs_wire),
         .IfIdRegisterRt(IF_ID_rt_wire),
         .stall(stall_wire));
-	
+        
+    BRANCH_FORWARDING_UNIT BFU(
+        .IDcontrolBranch(branch_wire),
+        .ExMemRegisterRd(EX_MEM_five_bit_muxout_wire),
+        .IfIdRegisterRs(IF_ID_rs_wire),
+        .IfIdRegisterRt(IF_ID_rt_wire),
+        .ForwardC(),
+        .ForwardD());
+        
 	DEBUG_UNIT DU(
 	   .clk(clk),
 	   .rst(rst),

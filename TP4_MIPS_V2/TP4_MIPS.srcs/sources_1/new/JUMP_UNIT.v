@@ -24,10 +24,17 @@ module JUMP_UNIT(
     output reg J,
     output reg [31:0] PCjump);
     
+    reg [5:0] opcode;
+    
+    localparam Jop   = 6'b000010;
+    localparam JALop = 6'b000011;
+    //localparam JALop = 6'b000011;
+    
     always @ *
-	begin
+    begin
+        opcode = instruction[31:26];
         // Checks if J instruction
-        if( instruction[31:26] == 6'b000010)
+        if( opcode == Jop || opcode == JALop)
         begin
             J = 1'b1;
             PCjump = {{6{1'b0}}, instruction[25:0]};

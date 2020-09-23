@@ -44,7 +44,10 @@ module I_EXECUTE(
 	output        zero,
 	output [31:0] alu_result,
 	output [31:0] rdata2out,
-	output [4:0]  five_bit_muxout
+	output [4:0]  five_bit_muxout,
+	
+	// Branch
+	output PCSrc
 	);
 	
 	// Wires.				  
@@ -86,9 +89,14 @@ module I_EXECUTE(
 	BOTTOM_MUX bottom_mux(
 		.a(instrout_1511), 
 		.b(instrout_2016), 
-		.sel(EX[3]), 
-		.y(bottom_mux_out_wire));			
-		
+		.sel(EX[3]), // RegDst
+		.y(bottom_mux_out_wire));
+	
+	// Branch
+    AND_Gate and_gate(.m_ctlout(M[2]), 
+                  .zero(zero), 
+                  .PCSrc(PCSrc));
+	
 	EX_MEM ex_mem(
 		.clk(clk), 
 		.rst(rst),

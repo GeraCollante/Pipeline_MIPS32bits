@@ -17,30 +17,48 @@ module IF_ID(input clk,
              input rst,
              input enable,
              input stall,
+             input J,
              input [31:0] npc,
              input [31:0] instr,
              output reg [31:0] rs,
              output reg [31:0] rt,
              output reg [31:0] instrout,
              output reg [31:0] npcout);
+             
+    reg flush;
+    
 	// Initialize.
 	initial begin
-		instrout <= 0;
-		npcout <= 0;
+        flush    <= 1'b0;
+		instrout <= 1'b0;
+		npcout   <= 1'b0;
 	end
 
 	// Update.
 	always @ (posedge clk)
         if(rst)
             begin
-                npcout <= 0;
-                instrout <= 0;
+                flush <= 1'b0;
+                npcout <= 1'b0;
+                instrout <= 1'b0;
 			end
+//        else if (enable && flush)
+//            begin
+//                flush <= 1'b0;
+//            end
         else if (enable && !stall)
-        begin
-            npcout <= npc;
-			instrout <= instr;
-			rs <= instr[25:21];
-			rt <= instr[20:16];
-		end
+            begin
+                npcout <= npc;
+                instrout <= instr;
+                rs <= instr[25:21];
+                rt <= instr[20:16];
+            end
+		
+//	always @(J)
+//	begin
+//	   if(J)
+//	   begin
+//	       flush = 1'b1;
+//	   end
+//	end
 endmodule

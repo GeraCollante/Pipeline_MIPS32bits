@@ -23,7 +23,6 @@ module I_DECODE(
 	input  [31:0] IF_ID_NPC, 
 	input  [4:0]  MEM_WB_Writereg,
     input  [31:0] MEM_WB_Writedata,
-    input  J,
 	output [1:0]  WB,
 	output [2:0]  M,
 	output [3:0]  EX,
@@ -37,8 +36,14 @@ module I_DECODE(
 	output [4:0]  instrout_1511,
 	// Forwarding
 	// ---------------------------
-	output [4:0]  instrout_2521
+	output [4:0]  instrout_2521,
+	// Jump
 	// ---------------------------
+	output J,
+	output [31:0] PCjump,
+	// Branch
+	output branch,
+	output [31:0] PCbranch
 	);
 	
 	// Wires
@@ -49,13 +54,18 @@ module I_DECODE(
 	wire [31:0] REG_B_wire; 
 	wire [31:0] EXT_OUT_wire;
 	
+	// Branch
+	wire B_wire;	
+	
+	assign PCjump = IF_ID_Instr[25:0];
 	// Instantiate modules
 	// CONTROL
 	CONTROL ctl(.opcode(IF_ID_Instr[31:26]),
 	            .WB(CTL_WB_wire), 
 	            .M(CTL_M_wire),
 	            .EX(CTL_EX_wire),
-	            .J(J)
+	            .J(J),
+	            .B(B_wire)
 	            );
 	// REG
 	REG gp_reg(.clk(clk), 
@@ -71,6 +81,12 @@ module I_DECODE(
 	S_EXTEND #(.OUT_SIZE(32), 
 	           .IN_SIZE(16)) s_ex(.din(IF_ID_Instr[15:0]), 
 		       .dout(EXT_OUT_wire));
+	// ADDER
+    ADDER adder(
+    .add_in1(EXT_OUT_wire), 
+    .add_in2(IF_ID_NPC), 
+    .add_out(PCbranch));
+	
 	// ID_EX
 	ID_EX id_ex(.clk(clk), 
 	            .rst(rst), 
@@ -99,4 +115,10 @@ module I_DECODE(
 		        .instrout_2016(instrout_2016),
 		        .instrout_1511(instrout_1511), 
 		        .instrout_2521(instrout_2521));
+		        
+    BRANCH_UNIT BU(.reg1(REG_A_wire),
+                   .reg2(REG_B_wire),
+                   .B(B_wire),
+                   .Branch(branch));
+       
 endmodule

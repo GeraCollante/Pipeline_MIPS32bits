@@ -14,15 +14,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module I_FETCH(
+    // Inputs
     input clk,
     input enable,
     input enable_wr,
-    input PCSrc,
+//    input PCSrc,
     input rst,
     input stall,
+    // Jump
+    input J,
+    input [31:0] PCjump,
+    // Branch
+    input branch,
+    input wire [31:0] PCbranch,
     input wire [31:0] EX_MEM_NPC, 
     input wire [31:0] addr_wire, 
     input wire [31:0] instr_wire,
+    // Outputs
     output wire [31:0] IF_ID_IR, 
     output wire [31:0] IF_ID_NPC,
     output wire [31:0] IF_ID_rs,
@@ -34,9 +42,7 @@ module I_FETCH(
 	wire [31:0] mux_npc_wire;
 	wire [31:0] npc_wire;
     wire [31:0] pc_wire;
-    wire [31:0] PCjump_wire;
 	wire halt_wire;
-	wire J_wire;
 	
 	// Instantiate modules.
 //	MUX mux(
@@ -46,10 +52,10 @@ module I_FETCH(
 //	   .y(mux_npc_wire));
 
     THREE_ONE_MUX PC_MUX(
-		.a(EX_MEM_NPC),
-		.b(PCjump_wire),
+		.a(PCbranch),
+		.b(PCjump),
 		.c(npc_wire),
-		.sel({PCSrc,J_wire}),
+		.sel({branch,J}),
 		.y(mux_npc_wire));
 	
 	PC pc(
@@ -75,10 +81,17 @@ module I_FETCH(
 	INCR incr(
 	   .pcin(pc_wire), 
 	   .pcout(npc_wire));
+	   
+    MUX flush(
+       .a({32{1'b0}}),
+       .b(data_wire),
+       .sel(flush),
+       .y(WriteData));
 	
 	IF_ID if_id(
 	   .clk(clk),
 	   .rst(rst),
+	   .J(J),
 	   .stall(stall),
 	   .enable(enable),
 	   .npc(npc_wire),
@@ -88,9 +101,9 @@ module I_FETCH(
 	   .rs(IF_ID_rs),
 	   .rt(IF_ID_rt));
 	   
-   JUMP_UNIT JU(
-       .instruction(data_wire),
-       .J(J_wire),
-       .PCjump(PCjump_wire));
+//   JUMP_UNIT JU(
+//       .instruction(data_wire),
+//       .J(J_wire),
+//       .PCjump(PCjump_wire));
        
 endmodule
