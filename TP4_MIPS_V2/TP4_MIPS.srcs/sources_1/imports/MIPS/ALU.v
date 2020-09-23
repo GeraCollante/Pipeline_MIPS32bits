@@ -22,36 +22,51 @@ module ALU(
     output reg zero,
 	output reg [31:0] result);
 	
+    localparam AND  = 4'b0000;
+    localparam OR   = 4'b0001;
+    localparam ADD  = 4'b0010;
+    localparam SLL  = 4'b0011;
+    localparam SRL  = 4'b0100;
+    localparam SRA  = 4'b0101;
+    localparam SUB  = 4'b0110;
+    localparam SLT  = 4'b0111;    
+    localparam LUI  = 4'b1001;  
+    localparam XOR  = 4'b1010;  
+    localparam NOR  = 4'b1011;  
+    localparam SLLV = 4'b1100;
+    localparam SRLV = 4'b1101;
+    localparam SRAV = 4'b1110;
+	
 	always @ *
 	begin
 		case (control)
-			4'b0000:
+			AND:
 				result = A & B;             // AND
-			4'b0001:
+			OR:
 				result = A | B;             // OR
-			4'b0010:
+			ADD:
 				result = A + B;             // ADD
-			4'b0011:
+			SLL:
 				result = ( B << shamt);     // SLL
-			4'b0100:
+			SRL:
 				result = ( B >>> shamt);    // SRL
-			4'b0101:
+			SRA:
 				result = ( B >> shamt);     // SRA
-			4'b0110:
+			SUB:
 				result = A - B;             // SUB
-			4'b0111:
-				result = (A < B) ? 1 : 0;   //SLT
-			4'b1001:
+			SLT:
+				result = (A < B) ? 1 : 0;   // SLT
+			LUI:
 				result = (B << 16);         // LUI
-			4'b1010:
+			XOR:
 				result = (A^B);             // XOR
-			4'b1011:
+			NOR:
 				result = ~(A|B);            // NOR
-			4'b1100:
+			SLLV:
 				result = A << B;            // SLLV
-			4'b1101:
+			SRLV:
 				result = A >>> B;           // SRLV
-			4'b1110:
+			SRAV:
 				result = A >> B;            // SRAV
 //			4'b1111:
 //				result = A + B;

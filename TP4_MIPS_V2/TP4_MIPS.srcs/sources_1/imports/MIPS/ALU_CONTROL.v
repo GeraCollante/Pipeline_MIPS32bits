@@ -20,11 +20,35 @@ module ALU_CONTROL(
     input [1:0] alu_op,
     output reg [3:0] select);
     
+    localparam HALT         = 6'b111111;
+    localparam R_Type_SLL   = 6'b000000;
+    localparam R_Type_SRL   = 6'b000010;
+    localparam R_Type_SRA   = 6'b000011;
+    localparam R_Type_SLLV  = 6'b000100;
+    localparam R_Type_SRLV  = 6'b000110;
+    localparam R_Type_SRAV  = 6'b000111;
+    localparam R_Type_JR    = 6'b001000;
+    localparam R_Type_ADD   = 6'b100000;
+    localparam R_Type_ADDU  = 6'b100001;
+    localparam R_Type_SUB   = 6'b100010;
+    localparam R_Type_SUBU  = 6'b100011;
+    localparam R_Type_AND   = 6'b100100;
+    localparam R_Type_OR    = 6'b100101;
+    localparam R_Type_XOR   = 6'b100110;
+    localparam R_Type_NOR   = 6'b100111;
+    localparam R_Type_SLT   = 6'b101010;
+    localparam I_Type_ADDI  = 6'b001000;
+    localparam I_Type_SLTI  = 6'b001010;
+    localparam I_Type_ANDI  = 6'b001100;
+    localparam I_Type_ORI   = 6'b001101; 
+    localparam I_Type_XORI  = 6'b001110;
+    localparam I_Type_LUI   = 6'b001111;
+    
     always @ * 
     begin
         case (alu_op) 
 			2'b00: 
-                if (opcode != 6'b111111) // NOT HALT
+                if (opcode != HALT) // NOT HALT
 				begin
 					select = 4'b0010;    // LW - SW - JAL
 				end
@@ -39,31 +63,31 @@ module ALU_CONTROL(
 			2'b10:                       //R-Type
 				begin
 					case (funct)
-						6'b000000:
+						R_Type_SLL:
 							begin
 								select = 4'b0011;   // R sll
 							end
-                        6'b000010:
+                        R_Type_SRL:
 							begin
 								select = 4'b0100;   // R srl
 							end
-						6'b000011:
+						R_Type_SRA:
 							begin
 								select = 4'b0101;   // R sra
 							end
-                        6'b000100: 
+                        R_Type_SLLV: 
 							begin
 								select = 4'b1100;   // R sllv
 							end
-                        6'b000110: 
+                        R_Type_SRLV: 
 							begin
 								select = 4'b1101;   // R srlv
 							end
-                        6'b000111: 
+                        R_Type_SRAV: 
 							begin
 								select = 4'b1110;   // R srav
 							end
-                        6'b001000: 
+                        R_Type_JR: 
 							begin
 								select = 4'b0010;   // R jr
 							end
@@ -71,39 +95,39 @@ module ALU_CONTROL(
 //							begin
 //								select = 3'bxxx;   // R jalr
 //							end
-						6'b100000: 
+						R_Type_ADD: 
 							begin
 								select = 4'b0010;   // R add
 							end
-                        6'b100001:
+                        R_Type_ADDU:
 							begin
 								select = 4'b0010;   // R addu
 							end
-						6'b100010: 
+						R_Type_SUB: 
 							begin
 								select = 4'b0110;   // R sub
 							end
-                        6'b100011:
+                        R_Type_SUBU:
 							begin
 								select = 4'b0110;   // R subu
 							end
-						6'b100100: 
+						R_Type_AND: 
 							begin
 								select = 4'b0000;   // R and
 							end
-						6'b100101: 
+						R_Type_OR: 
 							begin
 								select = 4'b0001;   // R or
 							end
-                        6'b100110:
+                        R_Type_XOR:
 							begin
 								select = 4'b1010;   // R xor
 							end
-                        6'b100111:
+                        R_Type_NOR:
 							begin
 								select = 4'b1011;   // R nor
 							end
-						6'b101010: 
+						R_Type_SLT: 
 							begin
 								select = 4'b0111;   // R slt
 							end
@@ -116,27 +140,27 @@ module ALU_CONTROL(
 			2'b11:
                 begin
                     case(opcode)    // I-type
-                        6'b001000:  // ADDI
+                        I_Type_ADDI:  // ADDI
                             begin
                                 select = 4'b0010;
                             end
-                        6'b001010:  // SLTI
+                        I_Type_SLTI:  // SLTI
                             begin
                                 select = 4'b0111;
                             end
-                        6'b001100:  // ANDI
+                        I_Type_ANDI:  // ANDI
                             begin
                                 select = 4'b0000;
                             end
-                        6'b001101:  // ORI
+                        I_Type_ORI:  // ORI
                             begin
                                 select = 4'b0001;
                             end
-                        6'b001110:  // XORI
+                        I_Type_XORI:  // XORI
                             begin
                                 select = 4'b1010;
                             end
-                        6'b001111:  // LUI
+                        I_Type_LUI:  // LUI
                             begin
                                 select = 4'b1001;
                             end
