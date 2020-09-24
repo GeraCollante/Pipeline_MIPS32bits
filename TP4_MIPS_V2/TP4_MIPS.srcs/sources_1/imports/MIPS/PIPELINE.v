@@ -82,7 +82,11 @@ module PIPELINE(input clk,
 	wire [31:0] PCjump_wire;
 	
 	// Branch wires
+	wire B_ctl_wire;
 	wire branch_wire;
+	wire fwd_reg1_wire;
+	wire fwd_reg2_wire;
+	wire fwd_sel_wire;
     wire [31:0] PCbranch_wire;
 	
 	I_FETCH FETCH(
@@ -117,7 +121,13 @@ module PIPELINE(input clk,
 		.IF_ID_Instr(IF_ID_IR_wire), 
 		.IF_ID_NPC(IF_ID_NPC_wire), 
 		.MEM_WB_Writereg(mem_Write_reg_wire), 
-		.MEM_WB_Writedata(wb_data_wire), 
+		.MEM_WB_Writedata(wb_data_wire),
+		// Branch
+		.ForwardReg1(fwd_reg1_wire),
+		.ForwardReg2(fwd_reg2_wire),
+		.ForwardSel(fwd_sel_wire),
+		.EXMEM_result(EX_MEM_alu_result_wire),
+		.MEMWB_result(mem_ALU_result_wire),
 		// Outputs
 		.WB(ID_EX_WB_wire),
 		.M(ID_EX_M_wire), 
@@ -136,6 +146,7 @@ module PIPELINE(input clk,
 		.J(J_wire),
 		.PCjump(PCjump_wire),
 		// Branch
+		.B(B_ctl_wire),
 		.branch(branch_wire),
 		.PCbranch(PCbranch_wire)
 		);
@@ -221,12 +232,14 @@ module PIPELINE(input clk,
         .stall(stall_wire));
         
     BRANCH_FORWARDING_UNIT BFU(
-        .IDcontrolBranch(branch_wire),
+        .IDcontrolBranch(B_ctl_wire),
         .ExMemRegisterRd(EX_MEM_five_bit_muxout_wire),
         .IfIdRegisterRs(IF_ID_rs_wire),
         .IfIdRegisterRt(IF_ID_rt_wire),
-        .ForwardC(),
-        .ForwardD());
+        .MemWbRegisterRd(mem_Write_reg_wire),
+        .ForwardReg1(fwd_reg1_wire),
+        .ForwardReg2(fwd_reg2_wire),
+        .ForwardSel(fwd_sel_wire));
         
 	DEBUG_UNIT DU(
 	   .clk(clk),

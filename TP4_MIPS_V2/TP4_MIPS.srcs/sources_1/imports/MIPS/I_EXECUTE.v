@@ -59,6 +59,11 @@ module I_EXECUTE(
 	wire [4:0]  bottom_mux_out_wire;
 	wire [31:0] forward_mux_b_out_wire;
 	wire [31:0] forward_mux_a_out_wire;
+	
+	// JAL
+	wire jal_wire;
+	wire [31:0] alu_result_mux_wire;
+	wire [31:0] PCra_mux;
 		
 	// Instantiate modules.
 	ADDER adder(
@@ -78,7 +83,13 @@ module I_EXECUTE(
 		.control(alu_control_out_wire), 
 		.shamt(shamt),
 		.zero(alu_zero_wire), 
-		.result(alu_result_wire));	
+		.result(alu_result_mux_wire));	
+		
+    MUX alu_result_mux(
+		.a(PCra_mux), 
+		.b(alu_result_mux_wire),
+		.sel(jal_wire), 
+		.y(alu_result_wire));
 		
 	ALU_CONTROL alu_control(
 		.funct(IR[5:0]), 
@@ -96,6 +107,13 @@ module I_EXECUTE(
     AND_Gate and_gate(.m_ctlout(M[2]), 
                   .zero(zero), 
                   .PCSrc(PCSrc));
+	
+	// Jump
+	JAL_UNIT JU(
+	    .NPC(NPC),
+	    .opcode(opcode),
+	    .PCra(PCra_mux),
+	    .JAL(jal_wire));
 	
 	EX_MEM ex_mem(
 		.clk(clk), 

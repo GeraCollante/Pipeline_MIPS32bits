@@ -60,7 +60,8 @@
 module BRANCH_UNIT(
     input [31:0] reg1,
     input [31:0] reg2,
-    input B,
+    input BEQ,
+    input BNE,
     output reg Branch
 );
   
@@ -69,7 +70,7 @@ module BRANCH_UNIT(
     always @*
     begin
         Equal = (reg1 == reg2) ? 1'b1 : 1'b0;
-        Branch = (B && Equal) || (B && ~Equal);
+        Branch = (BEQ && Equal) || (BNE && ~Equal);
     end
   
 endmodule

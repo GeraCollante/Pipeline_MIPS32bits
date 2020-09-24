@@ -18,6 +18,7 @@ module IF_ID(input clk,
              input enable,
              input stall,
              input J,
+             input B,
              input [31:0] npc,
              input [31:0] instr,
              output reg [31:0] rs,
@@ -42,10 +43,10 @@ module IF_ID(input clk,
                 npcout <= 1'b0;
                 instrout <= 1'b0;
 			end
-//        else if (enable && flush)
-//            begin
-//                flush <= 1'b0;
-//            end
+        else if (enable && flush)
+            begin
+                flush <= 1'b0;
+            end
         else if (enable && !stall)
             begin
                 npcout <= npc;
@@ -54,11 +55,12 @@ module IF_ID(input clk,
                 rt <= instr[20:16];
             end
 		
-//	always @(J)
-//	begin
-//	   if(J)
-//	   begin
-//	       flush = 1'b1;
-//	   end
-//	end
+	always @(J, B)
+        begin
+           if(J || B)
+           begin
+               flush = 1'b1;
+           end
+        end
+        
 endmodule

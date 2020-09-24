@@ -1,4 +1,4 @@
-	jal LABEL
+	jr $a1
 	nop
-LABEL:	lw $v0, 3($at)
-	hlt
+	nop
+	nop

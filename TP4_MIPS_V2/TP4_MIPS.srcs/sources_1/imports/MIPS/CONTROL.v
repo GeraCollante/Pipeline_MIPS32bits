@@ -19,7 +19,10 @@
                    output reg [2:0] M,
                    output reg [3:0] EX,
                    output reg J,
-                   output reg B);
+                   output reg B,
+                   output reg BEQ,
+                   output reg BNE
+                   );
 	
     localparam R_Type       = 6'b000000;
     localparam I_Type_ADDI  = 6'b001000;
@@ -42,27 +45,33 @@
 		case (opcode)
 			R_Type:   // R-format
 				begin
-					WB = 2'b10;
-					M  = 3'b000;
-					EX = 4'b1100;
-					J  = 1'b0;
-					B  = 1'b0;
+					WB  = 2'b10;
+					M   = 3'b000;
+					EX  = 4'b1100;
+					J   = 1'b0;
+					B   = 1'b0;
+					BEQ = 1'b0;
+					BNE = 1'b0;
 				end		
             I_Type_BEQ:   // I-Format: Branch If Equal (BEQ)
 				begin
-					WB = 2'b00;
-					M  = 3'b100;
-					EX = 4'b0010;
-					J  = 1'b0;
-					B  = 1'b1;
+					WB  = 2'b10;
+					M   = 3'b000;
+					EX  = 4'b1100;
+					J   = 1'b0;
+					B   = 1'b1;
+					BEQ = 1'b1;				
+					BNE = 1'b0;
 				end
             I_Type_BNE:   // I-Format: Branch if Not Equal (BNE)
 				begin
-					WB = 2'b00;
-					M  = 3'b100;
-					EX = 4'b0010;
-					J  = 1'b0;
-					B  = 1'b0;
+					WB  = 2'b10;
+					M   = 3'b000;
+					EX  = 4'b1100;
+					J   = 1'b0;
+					B   = 1'b1;
+					BEQ = 1'b0;					
+					BNE = 1'b1;
 				end
             I_Type_ADDI:   // I-Format: Add Immediate Unsigned Word (ADDI)
 				begin
@@ -70,7 +79,9 @@
 					M  = 3'b000;
 					EX = 4'b0111;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0;					
+					BNE = 1'b0;
 				end
             I_Type_SLTI:   // I-Format: Set to 1 if Less Than Immediate (SLTI)
 				begin
@@ -78,7 +89,9 @@
 					M  = 3'b000;
 					EX = 4'b0111;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
             I_Type_ANDI:   // I-Format: Bitwise AND Immediate (ANDI)
 				begin
@@ -86,7 +99,9 @@
 					M  = 3'b000;
 					EX = 4'b0111;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
             I_Type_ORI:   // I-Format: Bitwise OR Immediate (ORI)
 				begin
@@ -94,7 +109,9 @@
 					M  = 3'b000;
 					EX = 4'b0111;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
             I_Type_XORI:   // I-Format: Exclusive OR Immediate (XORI)
 				begin
@@ -102,7 +119,9 @@
 					M  = 3'b000;
 					EX = 4'b0111;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
             I_Type_LUI:   // I-Format: Load Upper Immediate (LUI)
 				begin
@@ -110,7 +129,9 @@
 					M  = 3'b000;
 					EX = 4'b0111;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
 //            6'b100000:   // I-Format: Load Byte (LB)
 //				begin
@@ -132,7 +153,9 @@
 					M  = 3'b010;
 					EX = 4'b0001;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end					
 //			6'b100100:   // I-Format: Load Byte Unsigned (LBU)
 //				begin
@@ -175,7 +198,9 @@
 					M  = 3'b001;
 					EX = 4'b0001;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end					
 			J_Type_J:   // J-Format: Jump to Address (J)
                 begin
@@ -183,15 +208,19 @@
 					M  = 3'b000;
 					EX = 4'b0000;
 					J  = 1'b1;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
                 end
             J_Type_JAL:   // J-Format: Jump and Link (JAL)
                 begin
-                    WB = 2'b00;
+                    WB = 2'b10;
 					M  = 3'b000;
-					EX = 4'b0000;
+					EX = 4'b1000;
 					J  = 1'b1;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
                 end
 //            6'b000000:   // J-Format: Jump and Link  Register (JALR)
 //                begin
@@ -206,7 +235,9 @@
 					M  = 3'b000;
 					EX = 4'b0000;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
             HALT:	      // HALT 
 				begin
@@ -214,7 +245,9 @@
 					M  = 3'b000;
 					EX = 4'b0000;
 					J  = 1'b0;
-					B  = 1'b0;
+					B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
 				end
 			default:     // I-Format
                 begin
@@ -222,7 +255,12 @@
                     M  = 3'b000;
                     EX = 4'b0110;
                     J  = 1'b0;
+                    B   = 1'b0;
+					BEQ  = 1'b0; 
+					BNE  = 1'b0;
                 end
 		endcase
 	end
+	
+	
 endmodule

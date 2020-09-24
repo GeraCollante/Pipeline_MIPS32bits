@@ -46,6 +46,7 @@ module ID_EX(input clk,
             // ---------------------------
             );
 	
+	localparam J_Type_JAL   = 6'b000011;
 	// Initialize
 //	initial
 //		begin
@@ -83,18 +84,26 @@ module ID_EX(input clk,
 			end
         else if (enable)
             begin
-            wb_ctlout     <= ctlwb_out;
-			m_ctlout      <= ctlm_out;
-			ex_ctlout     <= ctlex_out;
-			npcout        <= npc;
-			rdata1out     <= readdat1;
-			rdata2out     <= readdat2;
-			s_extendout   <= signext_out;
-			shamt_out     <= shamt;
-			opcode_out    <= opcode;
-			instrout_2016 <= instr_2016;
-			instrout_1511 <= instr_1511;
-			// Forwarding
-			instrout_2521 <= instr_2521;
+                wb_ctlout     <= ctlwb_out;
+                m_ctlout      <= ctlm_out;
+                ex_ctlout     <= ctlex_out;
+                npcout        <= npc;
+                rdata1out     <= readdat1;
+                rdata2out     <= readdat2;
+                s_extendout   <= signext_out;
+                shamt_out     <= shamt;
+                opcode_out    <= opcode;
+                instrout_2016 <= instr_2016;
+                // Forwarding
+                instrout_2521 <= instr_2521;
+                // Jal
+                if(opcode == J_Type_JAL) 
+                    begin
+                        instrout_1511 <= 5'b11111;
+                    end
+                else
+                    begin
+                        instrout_1511 <= instr_1511;
+                    end
 			end
 endmodule

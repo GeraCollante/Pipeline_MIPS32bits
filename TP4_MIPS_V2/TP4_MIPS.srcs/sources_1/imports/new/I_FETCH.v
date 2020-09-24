@@ -82,16 +82,11 @@ module I_FETCH(
 	   .pcin(pc_wire), 
 	   .pcout(npc_wire));
 	   
-    MUX flush(
-       .a({32{1'b0}}),
-       .b(data_wire),
-       .sel(flush),
-       .y(WriteData));
-	
 	IF_ID if_id(
 	   .clk(clk),
 	   .rst(rst),
 	   .J(J),
+	   .B(branch),
 	   .stall(stall),
 	   .enable(enable),
 	   .npc(npc_wire),

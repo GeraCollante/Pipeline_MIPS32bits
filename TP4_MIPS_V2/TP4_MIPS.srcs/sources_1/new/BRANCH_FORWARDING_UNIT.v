@@ -21,28 +21,69 @@
 
 module BRANCH_FORWARDING_UNIT(
     input IDcontrolBranch,
-    input ExMemRegisterRd,
-    input IfIdRegisterRs,
-    input IfIdRegisterRt,
-    output reg ForwardC,
-    output reg ForwardD);
+    input [4:0] ExMemRegisterRd,
+    input [4:0] IfIdRegisterRs,
+    input [4:0] IfIdRegisterRt,
+    input [4:0] MemWbRegisterRd,
+    output reg ForwardReg1,
+    output reg ForwardReg2,
+    output reg ForwardSel);
 
-    always @(*)
-        begin
-            if ( IDcontrolBranch &&
-               ( ExMemRegisterRd != 0 ) &&
-               ( ExMemRegisterRd == IfIdRegisterRs ))
-               begin
-                    ForwardC = 1;
-               end
-           if ( IDcontrolBranch &&
-               ( ExMemRegisterRd != 0 ) &&
-               ( ExMemRegisterRd == IfIdRegisterRt ))
-               begin
-                    ForwardD = 1;
-               end
-        end
+    initial begin 
+        ForwardReg1 = 1'b0;
+        ForwardReg2 = 1'b0;
+        ForwardSel  = 1'b0;
+    end
+    
+    // EX forwarding
+    
+always @(*)
+    begin
+        // ExMem fwd
+        // ForwardSel = 1
+        if ( IDcontrolBranch &&
+        ( ExMemRegisterRd != 0 ) &&
+        ( ExMemRegisterRd == IfIdRegisterRs ))
+            begin
+                ForwardReg1 = 1'b1;
+                ForwardReg2 = 1'b0;
+                ForwardSel  = 1'b1;
+            end
+        else if ( IDcontrolBranch &&
+        ( ExMemRegisterRd != 0 ) &&
+        ( ExMemRegisterRd == IfIdRegisterRt ))
+            begin
+                ForwardReg1 = 1'b0;
+                ForwardReg2 = 1'b1;
+                ForwardSel  = 1'b1;
+            end
+        // MemWb Fwd
+        // Forward Sel = 1
+        else if ( IDcontrolBranch &&
+        ( MemWbRegisterRd == IfIdRegisterRs ))
+            begin
+                ForwardReg1 = 1'b1;
+                ForwardReg2 = 1'b0;
+                ForwardSel  = 1'b0;
+            end
+        else if ( IDcontrolBranch &&
+        ( MemWbRegisterRd == IfIdRegisterRt ))
+            begin
+                ForwardReg1 = 1'b0;
+                ForwardReg2 = 1'b1;
+                ForwardSel  = 1'b0;
+            end 
+        else
+            begin
+                ForwardReg1 = 1'b0;
+                ForwardReg2 = 1'b0;
+                ForwardSel  = 1'b0;
+            end
+end
 
+// MEM forwarding
+// Forward Sel = 0
+           
 //always @*
 //begin
 //    if (on == 1)

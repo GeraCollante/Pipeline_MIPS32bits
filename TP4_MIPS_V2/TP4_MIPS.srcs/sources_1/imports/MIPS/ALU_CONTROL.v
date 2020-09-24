@@ -43,19 +43,22 @@ module ALU_CONTROL(
     localparam I_Type_ORI   = 6'b001101; 
     localparam I_Type_XORI  = 6'b001110;
     localparam I_Type_LUI   = 6'b001111;
+    localparam J_Type_JAL   = 6'b000011;
     
     always @ * 
     begin
         case (alu_op) 
 			2'b00: 
-                if (opcode != HALT) // NOT HALT
-				begin
-					select = 4'b0010;    // LW - SW - JAL
-				end
-				else
-				begin
-				    select = 4'b1111;   // HALT
-				end
+			    begin 
+                    if (opcode != HALT) // NOT HALT
+                    begin
+                        select = 4'b0010;    // LW - SW - JAL
+                    end
+                    else
+                    begin
+                        select = 4'b1111;   // HALT
+                    end
+                end
 			2'b01: 
 				begin
 					select = 4'b0110;            // BEQ - BNE
