@@ -39,7 +39,7 @@ module BRANCH_FORWARDING_UNIT(
     
 always @(*)
     begin
-        // ExMem fwd
+        // ExMem Fwd
         // ForwardSel = 1
         if ( IDcontrolBranch &&
         ( ExMemRegisterRd != 0 ) &&
@@ -58,7 +58,7 @@ always @(*)
                 ForwardSel  = 1'b1;
             end
         // MemWb Fwd
-        // Forward Sel = 1
+        // Forward Sel = 0
         else if ( IDcontrolBranch &&
         ( MemWbRegisterRd == IfIdRegisterRs ))
             begin

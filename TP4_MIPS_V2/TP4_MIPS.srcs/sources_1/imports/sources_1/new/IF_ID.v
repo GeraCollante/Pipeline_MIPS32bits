@@ -21,8 +21,8 @@ module IF_ID(input clk,
              input B,
              input [31:0] npc,
              input [31:0] instr,
-             output reg [31:0] rs,
-             output reg [31:0] rt,
+             output reg [4:0] rs,
+             output reg [4:0] rt,
              output reg [31:0] instrout,
              output reg [31:0] npcout);
              
@@ -60,6 +60,10 @@ module IF_ID(input clk,
            if(J || B)
            begin
                flush = 1'b1;
+           end
+           else
+           begin
+                flush = 1'b0;
            end
         end
         

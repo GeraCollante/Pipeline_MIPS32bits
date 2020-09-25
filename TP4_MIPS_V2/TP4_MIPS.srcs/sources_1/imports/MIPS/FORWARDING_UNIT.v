@@ -15,12 +15,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module FORWARDING_UNIT(
+    // Inputs from the IF/EX
+    input  [4:0] IfIdRegisterRs,
+    input  [4:0] IfIdRegisterRt,
 	// Inputs from the ID/EX.
 	input  [4:0] IdExRegisterRs,
 	input  [4:0] IdExRegisterRt, 
 	// Inputs from the EX/MEM.
 	input  [4:0] ExMemRegisterRd, 
-	input  [1:0] ExMemRegWrite, 
+	input  ExMemRegWrite, 
 	input  [4:0] MemWbRegRd,
 	// Input form the MEM/WB.
 	input  [1:0] MemWbRegWrite, 
@@ -32,19 +35,28 @@ module FORWARDING_UNIT(
   begin
     forward_a_sel <= 2'b00;
     forward_b_sel <= 2'b00;
-    if(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRs))
+    if(ExMemRegWrite &&
+     (ExMemRegisterRd != 0) &&
+     (ExMemRegisterRd == IdExRegisterRs))
     begin
       forward_a_sel <= 2'b10;
     end
-    if(ExMemRegWrite[1] && (ExMemRegisterRd != 0) && (ExMemRegisterRd == IdExRegisterRt))
+    if(ExMemRegWrite &&
+     (ExMemRegisterRd != 0) &&
+     (ExMemRegisterRd == IdExRegisterRt))
     begin
       forward_b_sel <= 2'b10;
     end
-    if(MemWbRegWrite[1] && (MemWbRegRd != 0) && (ExMemRegisterRd != IdExRegisterRs) && (MemWbRegRd == IdExRegisterRs)) 
+    if(MemWbRegWrite &&
+     (MemWbRegRd != 0) &&
+     (ExMemRegisterRd != IdExRegisterRs) &&
+     (MemWbRegRd == IdExRegisterRs)) 
     begin
       forward_a_sel <= 2'b01;
     end
-    if(MemWbRegWrite[1] && (MemWbRegRd != 0) && (ExMemRegisterRd != IdExRegisterRt) && (MemWbRegRd == IdExRegisterRt))
+    if(MemWbRegWrite && (MemWbRegRd != 0) &&
+     (ExMemRegisterRd != IdExRegisterRt) &&
+     (MemWbRegRd == IdExRegisterRt))
     begin
       forward_b_sel <= 2'b01;
     end

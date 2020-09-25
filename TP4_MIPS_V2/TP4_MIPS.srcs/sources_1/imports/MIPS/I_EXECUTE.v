@@ -25,7 +25,7 @@ module I_EXECUTE(
 	input  [31:0] rdata1in,
 	input  [31:0] rdata2in,
 	input  [31:0] IR,
-	input  [5:0]  shamt,
+	input  [4:0]  shamt,
 	input  [5:0]  opcode,
 	input  [4:0]  instrout_2016,
 	input  [4:0]  instrout_1511,	
@@ -41,20 +41,15 @@ module I_EXECUTE(
 	output [1:0]  wb_ctlout,
 	output [2:0]  m_ctlout,
 	output [31:0] add_result,
-	output        zero,
 	output [31:0] alu_result,
 	output [31:0] rdata2out,
-	output [4:0]  five_bit_muxout,
-	
-	// Branch
-	output PCSrc
+	output [4:0]  five_bit_muxout
 	);
 	
 	// Wires.				  
 	wire [31:0] add_out_wire;
 	wire [31:0] alu_mux_out_wire;
 	wire [3:0]  alu_control_out_wire;
-	wire        alu_zero_wire;
 	wire [31:0] alu_result_wire;
 	wire [4:0]  bottom_mux_out_wire;
 	wire [31:0] forward_mux_b_out_wire;
@@ -82,7 +77,6 @@ module I_EXECUTE(
 		.B(alu_mux_out_wire), 
 		.control(alu_control_out_wire), 
 		.shamt(shamt),
-		.zero(alu_zero_wire), 
 		.result(alu_result_mux_wire));	
 		
     MUX alu_result_mux(
@@ -103,11 +97,6 @@ module I_EXECUTE(
 		.sel(EX[3]), // RegDst
 		.y(bottom_mux_out_wire));
 	
-	// Branch
-    AND_Gate and_gate(.m_ctlout(M[2]), 
-                  .zero(zero), 
-                  .PCSrc(PCSrc));
-	
 	// Jump
 	JAL_UNIT JU(
 	    .NPC(NPC),
@@ -122,14 +111,12 @@ module I_EXECUTE(
 		.ctlwb_out(WB), 
 		.ctlm_out(M), 
 		.adder_out(add_out_wire), 
-		.aluzero(alu_zero_wire), 
 		.aluout(alu_result_wire), 
 		.readdat2(forward_mux_b_out_wire), 
 		.muxout(bottom_mux_out_wire), 
 		.wb_ctlout(wb_ctlout), 
 		.m_ctlout(m_ctlout), 
-		.add_result(add_result), 
-		.zero(zero), 
+		.add_result(add_result),
 		.alu_result(alu_result), 
 		.rdata2out(rdata2out), 
 		.five_bit_muxout(five_bit_muxout));

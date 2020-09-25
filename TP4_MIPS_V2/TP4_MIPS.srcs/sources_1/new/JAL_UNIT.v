@@ -28,7 +28,8 @@ module JAL_UNIT(
 
     localparam J_Type_JAL = 6'b000011;
     
-    assign PCra = NPC + 1;
+    //assign PCra = NPC + 1;
+    assign PCra = NPC;
     
     always@(*)
         begin

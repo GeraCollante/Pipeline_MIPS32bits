@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module HAZARD_DETECTION_UNIT(
+    input ExMemBranch,
     input IdExMemRead,
     input [4:0] IdExRegisterRt,
     input [4:0] IfIdRegisterRs,
@@ -29,7 +30,7 @@ module HAZARD_DETECTION_UNIT(
     always @ *
 	begin
 		
-        if(IdExMemRead &&
+        if(IdExMemRead && !ExMemBranch &&
         ((IdExRegisterRt == IfIdRegisterRs) ||
         (IdExRegisterRt == IfIdRegisterRt)))
         begin

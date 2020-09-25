@@ -18,15 +18,12 @@ module MEM(
 	input         clk, 
 	input         rst, 
 	input         enable,
-	input         m_ctlout,
-	input         zero,
 	input         MemWrite, 
 	input         MemRead, 
 	input  [31:0] Write_data,
 	input  [1:0]  control_wb_in,
 	input  [31:0] ALU_result_in,
 	input  [4:0]  Write_reg_in,
-	output        PCSrc,
 	output [1:0]  mem_control_wb,
 	output [31:0] Read_data,
 	output [31:0] mem_ALU_result,
@@ -57,8 +54,8 @@ module MEM(
 		          .mem_ALU_result(mem_ALU_result), 
 		          .mem_Write_reg(mem_Write_reg));
 		
-	AND_Gate and_gate(.m_ctlout(m_ctlout), 
-	                  .zero(zero), 
-	                  .PCSrc(PCSrc));
+//	AND_Gate and_gate(.m_ctlout(m_ctlout), 
+//	                  .zero(zero), 
+//	                  .PCSrc(PCSrc));
 
 endmodule

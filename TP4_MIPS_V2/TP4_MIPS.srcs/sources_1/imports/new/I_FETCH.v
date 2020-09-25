@@ -27,14 +27,13 @@ module I_FETCH(
     // Branch
     input branch,
     input wire [31:0] PCbranch,
-    input wire [31:0] EX_MEM_NPC, 
     input wire [31:0] addr_wire, 
     input wire [31:0] instr_wire,
     // Outputs
     output wire [31:0] IF_ID_IR, 
     output wire [31:0] IF_ID_NPC,
-    output wire [31:0] IF_ID_rs,
-    output wire [31:0] IF_ID_rt
+    output wire [4:0] IF_ID_rs,
+    output wire [4:0] IF_ID_rt
     );
    
 	// Declare signal wires.
@@ -96,9 +95,4 @@ module I_FETCH(
 	   .rs(IF_ID_rs),
 	   .rt(IF_ID_rt));
 	   
-//   JUMP_UNIT JU(
-//       .instruction(data_wire),
-//       .J(J_wire),
-//       .PCjump(PCjump_wire));
-       
 endmodule

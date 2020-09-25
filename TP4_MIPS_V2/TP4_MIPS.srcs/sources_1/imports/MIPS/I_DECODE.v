@@ -42,7 +42,7 @@ module I_DECODE(
 	output [31:0] rdata2out,
 	output [31:0] IR,
 	output [5:0]  opcode_out,
-	output [5:0]  shamt_out,
+	output [4:0]  shamt_out,
 	output [4:0]  instrout_2016,
 	output [4:0]  instrout_1511,
 	// Forwarding
@@ -107,9 +107,9 @@ module I_DECODE(
 	    .funct(IF_ID_Instr[5:0]),
 	    .opcode_in(IF_ID_Instr[31:26]),
 	    .regA(REG_A_wire),
-	    .PC({6'b000000,IF_ID_Instr[25:0]}),
+	    .PCjump_in({6'b000000,IF_ID_Instr[25:0]}),
 	    .opcode_out(opcode),
-	    .PCjump(PCjump)
+	    .PCjump_out(PCjump)
     );
 	
 	// S_EXTEND	

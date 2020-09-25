@@ -136,7 +136,7 @@ module ALU_CONTROL(
 							end
 						default:
 						    begin
-                                select = 4'bx011;   // Invalid input						  
+                                select = 4'b0011;   // Invalid input						  
 						    end
 					endcase
 				end

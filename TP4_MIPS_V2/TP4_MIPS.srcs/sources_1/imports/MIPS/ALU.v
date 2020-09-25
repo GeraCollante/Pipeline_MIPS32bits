@@ -19,7 +19,6 @@ module ALU(
     input [31:0] B,
     input [4:0] shamt,
     input [3:0] control,
-    output reg zero,
 	output reg [31:0] result);
 	
     localparam AND  = 4'b0000;
@@ -74,6 +73,5 @@ module ALU(
 			    result = {32{1'b0}};
 				//result = 32'bxxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx_xxxx;
 		endcase
-		zero <= result ? 0 : 1;
 	end
 endmodule

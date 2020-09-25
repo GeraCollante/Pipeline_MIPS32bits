@@ -23,15 +23,14 @@ module PC(input clk,
 
 	// Update PC with the new PC value.
 	always @ (posedge clk)
-	if(rst)
 	begin
-	   PC <= {32{1'b0}};
+        if(rst)
+            begin
+               PC <= {32{1'b0}};
+            end
+        else if (enable && !stall && !halt)
+           begin
+               PC <= npc;
+           end
     end
-    else
-	begin
-	if (enable && !stall && !halt)
-	   begin
-	       PC <= npc;
-	   end
-	end
 endmodule

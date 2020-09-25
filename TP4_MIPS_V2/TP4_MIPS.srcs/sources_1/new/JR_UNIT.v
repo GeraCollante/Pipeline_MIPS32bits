@@ -23,9 +23,9 @@ module JR_UNIT(
     input [5:0] funct,
     input [5:0] opcode_in,
     input [31:0] regA,
-    input [31:0] PC,
-    output reg [31:0] opcode_out,
-    output reg [31:0] PCjump
+    input [31:0] PCjump_in,
+    output reg [5:0] opcode_out,
+    output reg [31:0] PCjump_out
     );
 
 localparam J_Type_JR = 6'b001000;
@@ -36,12 +36,12 @@ always @*
         if(funct == J_Type_JR)
             begin
                 opcode_out = J_Type_J;
-                PCjump = regA;
+                PCjump_out = regA;
             end
         else
             begin
                 opcode_out = opcode_in;
-                PCjump = PC;
+                PCjump_out = PCjump_in;
             end
     end
 

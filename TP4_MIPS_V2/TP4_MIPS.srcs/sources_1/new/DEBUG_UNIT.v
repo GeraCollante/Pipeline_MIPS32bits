@@ -45,6 +45,10 @@ begin
             enable = 1'b0;
         end
     end
+    else
+    begin
+        enable = 1'b0;
+    end
 end
 
 always @ (posedge clk)

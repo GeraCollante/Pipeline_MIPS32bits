@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="113637000fs"></ZoomStartTime>
-      <ZoomEndTime time="659637001fs"></ZoomEndTime>
-      <Cursor1Time time="247137000fs"></Cursor1Time>
+      <ZoomStartTime time="219909000fs"></ZoomStartTime>
+      <ZoomEndTime time="309109001fs"></ZoomEndTime>
+      <Cursor1Time time="304509000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="167"></NameColumnWidth>
-      <ValueColumnWidth column_width="55"></ValueColumnWidth>
+      <NameColumnWidth column_width="202"></NameColumnWidth>
+      <ValueColumnWidth column_width="88"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="13" />
    <wvobject type="logic" fp_name="/PIPELINE_tb/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -250,6 +250,18 @@
             <obj_property name="CustomSignalColor">#FFFF00</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
+         <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/FETCH/if_id/rs">
+            <obj_property name="ElementShortName">rs[4:0]</obj_property>
+            <obj_property name="ObjectShortName">rs[4:0]</obj_property>
+            <obj_property name="CustomSignalColor">#FFD700</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/FETCH/if_id/rt">
+            <obj_property name="ElementShortName">rt[4:0]</obj_property>
+            <obj_property name="ObjectShortName">rt[4:0]</obj_property>
+            <obj_property name="CustomSignalColor">#FFD700</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group82">
@@ -267,11 +279,11 @@
          <obj_property name="ObjectShortName">IF_ID_Instr[31:0]</obj_property>
          <obj_property name="CustomSignalColor">#00FFFF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject type="group" fp_name="group309">
          <obj_property name="label">CTL</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/ctl/opcode">
             <obj_property name="ElementShortName">opcode[5:0]</obj_property>
             <obj_property name="ObjectShortName">opcode[5:0]</obj_property>
@@ -322,7 +334,6 @@
       <wvobject type="group" fp_name="group7303">
          <obj_property name="label">JRU</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/JRU/funct">
             <obj_property name="ElementShortName">funct[5:0]</obj_property>
             <obj_property name="ObjectShortName">funct[5:0]</obj_property>
@@ -342,21 +353,9 @@
             <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/JRU/PC">
-            <obj_property name="ElementShortName">PC[31:0]</obj_property>
-            <obj_property name="ObjectShortName">PC[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/JRU/opcode_out">
-            <obj_property name="ElementShortName">opcode_out[31:0]</obj_property>
-            <obj_property name="ObjectShortName">opcode_out[31:0]</obj_property>
-            <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/JRU/PCjump">
-            <obj_property name="ElementShortName">PCjump[31:0]</obj_property>
-            <obj_property name="ObjectShortName">PCjump[31:0]</obj_property>
+            <obj_property name="ElementShortName">opcode_out[5:0]</obj_property>
+            <obj_property name="ObjectShortName">opcode_out[5:0]</obj_property>
             <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
@@ -776,7 +775,7 @@
             <obj_property name="ElementShortName">instrout_2521[4:0]</obj_property>
             <obj_property name="ObjectShortName">instrout_2521[4:0]</obj_property>
             <obj_property name="label">rs</obj_property>
-            <obj_property name="Radix">HEXRADIX</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
             <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
@@ -785,7 +784,7 @@
             <obj_property name="ElementShortName">instrout_2016[4:0]</obj_property>
             <obj_property name="ObjectShortName">instrout_2016[4:0]</obj_property>
             <obj_property name="label">rt</obj_property>
-            <obj_property name="Radix">HEXRADIX</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
             <obj_property name="CustomSignalColor">#00FFFF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
@@ -841,12 +840,6 @@
             <obj_property name="CustomSignalColor">#FF00FF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
             <obj_property name="Radix">BINARYRADIX</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/EXECUTE/alu/zero">
-            <obj_property name="ElementShortName">zero</obj_property>
-            <obj_property name="ObjectShortName">zero</obj_property>
-            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/EXECUTE/alu/result">
             <obj_property name="ElementShortName">result[31:0]</obj_property>
@@ -927,7 +920,6 @@
       <wvobject type="group" fp_name="group5996">
          <obj_property name="label">ALU_RESULT_MUX</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/EXECUTE/alu_result_mux/a">
             <obj_property name="ElementShortName">a[31:0]</obj_property>
             <obj_property name="ObjectShortName">a[31:0]</obj_property>
@@ -956,6 +948,7 @@
       <wvobject type="group" fp_name="group457">
          <obj_property name="label">FMA</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/EXECUTE/FORWARD_MUX_A/a">
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="ElementShortName">a[31:0]</obj_property>
@@ -999,6 +992,7 @@
       <wvobject type="group" fp_name="group458">
          <obj_property name="label">FMB</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/EXECUTE/FORWARD_MUX_B/a">
             <obj_property name="DisplayName">label</obj_property>
             <obj_property name="ElementShortName">a[31:0]</obj_property>
@@ -1105,12 +1099,6 @@
             <obj_property name="CustomSignalColor">#FF00FF</obj_property>
             <obj_property name="UseCustomSignalColor">true</obj_property>
          </wvobject>
-         <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/EXECUTE/ex_mem/zero">
-            <obj_property name="ElementShortName">zero</obj_property>
-            <obj_property name="ObjectShortName">zero</obj_property>
-            <obj_property name="CustomSignalColor">#FF00FF</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/EXECUTE/ex_mem/alu_result">
             <obj_property name="ElementShortName">alu_result[31:0]</obj_property>
             <obj_property name="ObjectShortName">alu_result[31:0]</obj_property>
@@ -1135,29 +1123,6 @@
       <obj_property name="label">MEM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="group" fp_name="group866">
-         <obj_property name="label">AND_GATE</obj_property>
-         <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/MEMORY/and_gate/m_ctlout">
-            <obj_property name="ElementShortName">m_ctlout</obj_property>
-            <obj_property name="ObjectShortName">m_ctlout</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/MEMORY/and_gate/zero">
-            <obj_property name="ElementShortName">zero</obj_property>
-            <obj_property name="ObjectShortName">zero</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/MEMORY/and_gate/PCSrc">
-            <obj_property name="ElementShortName">PCSrc</obj_property>
-            <obj_property name="ObjectShortName">PCSrc</obj_property>
-            <obj_property name="CustomSignalColor">#F0E68C</obj_property>
-            <obj_property name="UseCustomSignalColor">true</obj_property>
-         </wvobject>
-      </wvobject>
       <wvobject type="group" fp_name="group1326">
          <obj_property name="label">D-MEM</obj_property>
          <obj_property name="DisplayName">label</obj_property>
@@ -1294,10 +1259,9 @@
          <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/FU/ExMemRegWrite">
-         <obj_property name="ElementShortName">ExMemRegWrite[1:0]</obj_property>
-         <obj_property name="ObjectShortName">ExMemRegWrite[1:0]</obj_property>
-         <obj_property name="Radix">BINARYRADIX</obj_property>
+      <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/FU/ExMemRegWrite">
+         <obj_property name="ElementShortName">ExMemRegWrite</obj_property>
+         <obj_property name="ObjectShortName">ExMemRegWrite</obj_property>
          <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
@@ -1340,6 +1304,12 @@
          <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/HDU/ExMemBranch">
+         <obj_property name="ElementShortName">ExMemBranch</obj_property>
+         <obj_property name="ObjectShortName">ExMemBranch</obj_property>
+         <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
       <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/HDU/IdExRegisterRt">
          <obj_property name="ElementShortName">IdExRegisterRt[4:0]</obj_property>
          <obj_property name="ObjectShortName">IdExRegisterRt[4:0]</obj_property>
@@ -1368,7 +1338,6 @@
    <wvobject type="group" fp_name="group349">
       <obj_property name="label">BFU</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/PIPELINE_tb/pipeline/BFU/IDcontrolBranch">
          <obj_property name="ElementShortName">IDcontrolBranch</obj_property>
          <obj_property name="ObjectShortName">IDcontrolBranch</obj_property>
@@ -1417,15 +1386,5 @@
          <obj_property name="CustomSignalColor">#FFFFFF</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
-   </wvobject>
-   <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/EXMEM_result">
-      <obj_property name="ElementShortName">EXMEM_result[31:0]</obj_property>
-      <obj_property name="ObjectShortName">EXMEM_result[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/PIPELINE_tb/pipeline/DECODE/MEMWB_result">
-      <obj_property name="ElementShortName">MEMWB_result[31:0]</obj_property>
-      <obj_property name="ObjectShortName">MEMWB_result[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
 </wave_config>

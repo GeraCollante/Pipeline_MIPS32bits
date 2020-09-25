@@ -83,15 +83,20 @@ module INSTR_MEM(input clk,
         begin
             data = MEM[addr];
         end
+        else
+        begin
+            data = {32{1'b0}};
+            MEM[saveaddr] <= instr;
+        end
 	end
 	
-	always @(posedge clk)
-	begin
-	   if (enable_wr)
-	   begin
-	       MEM[saveaddr] <= instr;
-	   end
-	end
+//	always @(posedge clk)
+//	begin
+//	   if (enable_wr)
+//	   begin
+//	       MEM[saveaddr] <= instr;
+//	   end
+//	end
 	
 	always @(negedge clk)
 	begin

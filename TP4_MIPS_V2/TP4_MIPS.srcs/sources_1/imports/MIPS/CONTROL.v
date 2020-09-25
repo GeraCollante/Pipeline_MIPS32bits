@@ -56,7 +56,7 @@
             I_Type_BEQ:   // I-Format: Branch If Equal (BEQ)
 				begin
 					WB  = 2'b10;
-					M   = 3'b000;
+					M   = 3'b100;
 					EX  = 4'b1100;
 					J   = 1'b0;
 					B   = 1'b1;
@@ -66,7 +66,7 @@
             I_Type_BNE:   // I-Format: Branch if Not Equal (BNE)
 				begin
 					WB  = 2'b10;
-					M   = 3'b000;
+					M   = 3'b100;
 					EX  = 4'b1100;
 					J   = 1'b0;
 					B   = 1'b1;

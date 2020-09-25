@@ -28,8 +28,8 @@ module PIPELINE(input clk,
 	// I_FETCH output wires.
 	wire [31:0] IF_ID_IR_wire;
 	wire [31:0] IF_ID_NPC_wire;
-	wire [31:0] IF_ID_rs_wire;
-	wire [31:0] IF_ID_rt_wire;
+	wire [4:0] IF_ID_rs_wire;
+	wire [4:0] IF_ID_rt_wire;
 	
 	// I_DECODE output wires.
 	wire [1:0]  ID_EX_WB_wire;
@@ -74,7 +74,7 @@ module PIPELINE(input clk,
 	// Hazard Detection Unit wires
 	wire stall_wire;
 	
-	wire [5:0] shamt_wire;
+	wire [4:0] shamt_wire;
 	wire [5:0] opcode_wire;
 	
 	// Jump wires
@@ -95,9 +95,7 @@ module PIPELINE(input clk,
 	   .rst(rst),
 	   .stall(stall_wire),
 	   .enable(enable_wire),
-//	   .PCSrc(PCSrc_wire), 
 	   .enable_wr(enable_wr),
-	   .EX_MEM_NPC(EX_MEM_add_result_wire),
 	   .addr_wire(addr_bus),
 	   .instr_wire(instr_bus),
 	   // Jump
@@ -170,8 +168,7 @@ module PIPELINE(input clk,
 		// Outputs
 		.wb_ctlout(EX_MEM_wb_ctlout_wire), 
 		.m_ctlout(EX_MEM_m_ctlout_wire), 
-		.add_result(EX_MEM_add_result_wire), 
-		.zero(EX_MEM_zero_wire), 
+		.add_result(EX_MEM_add_result_wire),
 		.alu_result(EX_MEM_alu_result_wire), 
 		.rdata2out(EX_MEM_rdata2out_wire),
 		.five_bit_muxout(EX_MEM_five_bit_muxout_wire),
@@ -187,8 +184,6 @@ module PIPELINE(input clk,
 		.clk(clk),
 		.rst(rst),
 		.enable(enable_wire),
-		.m_ctlout(EX_MEM_m_ctlout_wire[2]), 
-		.zero(EX_MEM_zero_wire), 
 		.MemWrite(EX_MEM_m_ctlout_wire[0]), 
 		.MemRead(EX_MEM_m_ctlout_wire[1]),
 		.Write_data(EX_MEM_rdata2out_wire), 
@@ -196,7 +191,6 @@ module PIPELINE(input clk,
 		.ALU_result_in(EX_MEM_alu_result_wire), 
 		.Write_reg_in(EX_MEM_five_bit_muxout_wire),
 		// Outputs
-		.PCSrc(PCSrc_wire),
 		.mem_control_wb(mem_control_wb_wire), 
 		.Read_data(Read_data_wire),
 		.mem_ALU_result(mem_ALU_result_wire), 
@@ -216,7 +210,7 @@ module PIPELINE(input clk,
 		.IdExRegisterRs(ID_EX_instrout_2521_wire), 
 		.IdExRegisterRt(ID_EX_instrout_2016_wire), 
 		.ExMemRegisterRd(EX_MEM_five_bit_muxout_wire), 
-		.ExMemRegWrite(EX_MEM_wb_ctlout_wire), 
+		.ExMemRegWrite(EX_MEM_wb_ctlout_wire[1]), 
 		.MemWbRegRd(mem_Write_reg_wire), 
 		.MemWbRegWrite(mem_control_wb_wire), 
 		// Outputs
@@ -225,6 +219,7 @@ module PIPELINE(input clk,
 	
 	// Hazard Detection Unit
 	HAZARD_DETECTION_UNIT HDU(
+	    .ExMemBranch(EX_MEM_m_ctlout_wire[2]),
         .IdExMemRead(ID_EX_M_wire[1]),
         .IdExRegisterRt(ID_EX_instrout_2016_wire),
         .IfIdRegisterRs(IF_ID_rs_wire),
