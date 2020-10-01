@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.21)  3 AUG 2020 15:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.9.17)  1 OCT 2020 01:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -535,6 +535,21 @@ LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
 
 LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
 
+
+LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
+
+
+LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
+
+
+LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
+
+
+LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
+
+
+LaTeX Warning: Label `fig:funcionamiento.' multiply defined.
+
 )
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
 LaTeX Font Info:    ... okay on input line 70.
@@ -643,7 +658,7 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.46 ...line {6.1}Modo de uso}{17}{subsection.6.1}
+l.46 ...line {6.1}Modo de uso}{16}{subsection.6.1}
                                                   % [1])
 \tf@toc=\write3
  [2]
@@ -661,162 +676,189 @@ U, SB, SH, SW, ADDI, ANDI,
 [3
 
 ]
-<TP4_17.png, id=132, 995.97093pt x 204.765pt>
-File: TP4_17.png Graphic file (type png)
-<use TP4_17.png>
-Package pdftex.def Info: TP4_17.png  used on input line 194.
-(pdftex.def)             Requested size: 482.9979pt x 99.30151pt.
- [4 <./TP4_17.png (PNG copy)>]
-<TP4_1.png, id=139, 344.78813pt x 201.00093pt>
-File: TP4_1.png Graphic file (type png)
-<use TP4_1.png>
-Package pdftex.def Info: TP4_1.png  used on input line 223.
-(pdftex.def)             Requested size: 137.9979pt x 80.44801pt.
-<TP4_7.png, id=141, 996.72375pt x 408.77719pt>
-File: TP4_7.png Graphic file (type png)
-<use TP4_7.png>
-Package pdftex.def Info: TP4_7.png  used on input line 248.
-(pdftex.def)             Requested size: 482.9979pt x 198.08205pt.
- [5 <./TP4_1.png (PNG copy)>]
+<IF_2.png, id=132, 286.06876pt x 405.76593pt>
+File: IF_2.png Graphic file (type png)
+<use IF_2.png>
+Package pdftex.def Info: IF_2.png  used on input line 196.
+(pdftex.def)             Requested size: 117.29874pt x 166.37749pt.
+<IF.png, id=133, 934.24031pt x 263.48438pt>
+File: IF.png Graphic file (type png)
+<use IF.png>
+Package pdftex.def Info: IF.png  used on input line 204.
+(pdftex.def)             Requested size: 482.9979pt x 136.22063pt.
+ [4 <./IF_2.png (PNG copy)> <./IF.png (PNG copy)>] [5]
+<ID_1.png, id=145, 345.54094pt x 450.9347pt>
+File: ID_1.png Graphic file (type png)
+<use ID_1.png>
+Package pdftex.def Info: ID_1.png  used on input line 240.
+(pdftex.def)             Requested size: 155.24895pt x 202.60222pt.
+<ID_2.png, id=146, 928.97063pt x 467.49657pt>
+File: ID_2.png Graphic file (type png)
+<use ID_2.png>
+Package pdftex.def Info: ID_2.png  used on input line 248.
+(pdftex.def)             Requested size: 465.7521pt x 234.38971pt.
+ [6
+
+ <./ID_1.png (PNG copy)> <./ID_2.png (PNG copy)>]
 Overfull \hbox (2.47542pt too wide) in paragraph at lines 277--277
 []|\T1/pcr/m/n/10 RegWrite| 
  []
 
 
-Overfull \hbox (2.47542pt too wide) in paragraph at lines 289--289
+Overfull \hbox (2.47542pt too wide) in paragraph at lines 286--286
 []|\T1/pcr/m/n/10 MemWrite| 
  []
 
 
-Overfull \hbox (2.47542pt too wide) in paragraph at lines 292--292
+Overfull \hbox (2.47542pt too wide) in paragraph at lines 289--289
 []|\T1/pcr/m/n/10 MemtoReg| 
  []
 
 
-Underfull \hbox (badness 1742) in paragraph at lines 293--293
+Underfull \hbox (badness 1742) in paragraph at lines 290--290
 \T1/lmr/m/n/10 gis-tro \T1/pcr/m/n/10 Write Data \T1/lmr/m/n/10 vie-ne
  []
 
 
-Underfull \hbox (badness 1742) in paragraph at lines 294--294
+Underfull \hbox (badness 1742) in paragraph at lines 291--291
 \T1/lmr/m/n/10 gis-tro \T1/pcr/m/n/10 Write Data \T1/lmr/m/n/10 vie-ne
  []
 
-[6 <./TP4_7.png (PNG copy)>] [7]
-<TP4_3.png, id=161, 383.93437pt x 433.62pt>
-File: TP4_3.png Graphic file (type png)
-<use TP4_3.png>
-Package pdftex.def Info: TP4_3.png  used on input line 335.
-(pdftex.def)             Requested size: 110.40253pt x 124.68793pt.
- [8
-
- <./TP4_3.png (PNG copy)>]
-<TP4_9.png, id=168, 995.97093pt x 435.87843pt>
-File: TP4_9.png Graphic file (type png)
-<use TP4_9.png>
-Package pdftex.def Info: TP4_9.png  used on input line 366.
-(pdftex.def)             Requested size: 517.5pt x 226.48515pt.
- [9 <./TP4_9.png (PNG copy)>]
-<TP4_11.png, id=180, 310.91156pt x 406.51875pt>
+[7]
+<TP4_11.png, id=161, 310.91156pt x 406.51875pt>
 File: TP4_11.png Graphic file (type png)
 <use TP4_11.png>
-Package pdftex.def Info: TP4_11.png  used on input line 428.
+Package pdftex.def Info: TP4_11.png  used on input line 370.
 (pdftex.def)             Requested size: 137.9979pt x 180.43195pt.
- [10] [11 <./TP4_11.png (PNG copy)>]
-Overfull \hbox (12.0pt too wide) in paragraph at lines 471--472
+<EX_2.png, id=162, 971.88094pt x 420.06938pt>
+File: EX_2.png Graphic file (type png)
+<use EX_2.png>
+Package pdftex.def Info: EX_2.png  used on input line 378.
+(pdftex.def)             Requested size: 517.5pt x 223.67409pt.
+ [8
+
+ <./TP4_11.png (PNG copy)>] [9 <./EX_2.png (PNG copy)>]
+<TP4_10.png, id=178, 322.20375pt x 220.57407pt>
+File: TP4_10.png Graphic file (type png)
+<use TP4_10.png>
+Package pdftex.def Info: TP4_10.png  used on input line 464.
+(pdftex.def)             Requested size: 172.5pt x 118.09514pt.
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 480--481
 []\T1/pcr/m/n/10 and (EX/MEM.RegisterRd = ID/EX.RegisterRs)) ForwardA = 10 
  []
 
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 475--476
+Overfull \hbox (12.0pt too wide) in paragraph at lines 484--485
 []\T1/pcr/m/n/10 and (EX/MEM.RegisterRd = ID/EX.RegisterRt)) ForwardB = 10 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 487--488
+Overfull \hbox (6.0pt too wide) in paragraph at lines 496--497
 []\T1/pcr/m/n/10 && (MEM/WB.RegisterRd = ID/EX.RegisterRs)) ForwardA = 01 
  []
 
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 495--496
+[10 <./TP4_10.png (PNG copy)>]
+Overfull \hbox (6.0pt too wide) in paragraph at lines 504--505
 []\T1/pcr/m/n/10 && (MEM/WB.RegisterRd = ID/EX.RegisterRt)) ForwardB = 01 
  []
 
 
-Overfull \hbox (15.88983pt too wide) in paragraph at lines 499--500
+Overfull \hbox (15.88983pt too wide) in paragraph at lines 508--509
 []\T1/lmr/m/n/10 Estas con-di-cio-nes se-rán im-ple-men-ta-das a tra-vés de dos
  mul-ti-ple-xo-res, \T1/pcr/m/n/10 ForwardA
  []
 
-[12]
-<TP4_10.png, id=198, 322.20375pt x 220.57407pt>
-File: TP4_10.png Graphic file (type png)
-<use TP4_10.png>
-Package pdftex.def Info: TP4_10.png  used on input line 537.
-(pdftex.def)             Requested size: 172.5pt x 118.09514pt.
-<TP4_13.png, id=199, 954.56625pt x 400.49625pt>
-File: TP4_13.png Graphic file (type png)
-<use TP4_13.png>
-Package pdftex.def Info: TP4_13.png  used on input line 565.
-(pdftex.def)             Requested size: 517.5pt x 217.1203pt.
- [13 <./TP4_10.png (PNG copy)>]
-<TP4_14.png, id=207, 344.78813pt x 367.3725pt>
-File: TP4_14.png Graphic file (type png)
-<use TP4_14.png>
-Package pdftex.def Info: TP4_14.png  used on input line 586.
-(pdftex.def)             Requested size: 172.5pt x 183.7979pt.
- [14 <./TP4_13.png (PNG copy)>]
-<TP4_15.png, id=213, 511.15968pt x 217.5628pt>
-File: TP4_15.png Graphic file (type png)
-<use TP4_15.png>
-Package pdftex.def Info: TP4_15.png  used on input line 617.
-(pdftex.def)             Requested size: 310.4979pt x 132.1554pt.
- [15 <./TP4_14.png (PNG copy)>]
-<TP4_16.png, id=220, 265.74281pt x 149.8097pt>
-File: TP4_16.png Graphic file (type png)
-<use TP4_16.png>
-Package pdftex.def Info: TP4_16.png  used on input line 629.
-(pdftex.def)             Requested size: 172.5pt x 97.24712pt.
- [16 <./TP4_15.png (PNG copy)> <./TP4_16.png (PNG copy)>]
-Overfull \hbox (18.0pt too wide) in paragraph at lines 668--669
+<MEM_1.png, id=186, 338.01282pt x 349.305pt>
+File: MEM_1.png Graphic file (type png)
+<use MEM_1.png>
+Package pdftex.def Info: MEM_1.png  used on input line 566.
+(pdftex.def)             Requested size: 124.20021pt x 128.35071pt.
+<MEM_2.png, id=187, 877.02657pt x 366.61969pt>
+File: MEM_2.png Graphic file (type png)
+<use MEM_2.png>
+Package pdftex.def Info: MEM_2.png  used on input line 574.
+(pdftex.def)             Requested size: 517.5pt x 216.33171pt.
+[11 <./MEM_1.png (PNG copy)>]
+<WB_1.png, id=195, 277.78781pt x 170.13562pt>
+File: WB_1.png Graphic file (type png)
+<use WB_1.png>
+Package pdftex.def Info: WB_1.png  used on input line 627.
+(pdftex.def)             Requested size: 134.54979pt x 82.40663pt.
+<WB_2.png, id=196, 545.78906pt x 251.43938pt>
+File: WB_2.png Graphic file (type png)
+<use WB_2.png>
+Package pdftex.def Info: WB_2.png  used on input line 635.
+(pdftex.def)             Requested size: 207.0021pt x 95.36378pt.
+ [12 <./MEM_2.png (PNG copy)> <./WB_1.png (PNG copy)>]
+<DU.png, id=204, 797.22844pt x 106.14656pt>
+File: DU.png Graphic file (type png)
+<use DU.png>
+Package pdftex.def Info: DU.png  used on input line 659.
+(pdftex.def)             Requested size: 345.0pt x 45.93367pt.
+<HDU.png, id=205, 392.21532pt x 372.64218pt>
+File: HDU.png Graphic file (type png)
+<use HDU.png>
+Package pdftex.def Info: HDU.png  used on input line 670.
+(pdftex.def)             Requested size: 155.24895pt x 147.50194pt.
+ [13 <./WB_2.png (PNG copy)> <./DU.png (PNG copy)> <./HDU.png (PNG copy)>]
+<bexmemfwd.png, id=213, 982.67125pt x 717.68124pt>
+File: bexmemfwd.png Graphic file (type png)
+<use bexmemfwd.png>
+Package pdftex.def Info: bexmemfwd.png  used on input line 698.
+(pdftex.def)             Requested size: 345.0pt x 251.95876pt.
+
+[14 <./bexmemfwd.png>]
+<bmemwbfwd.png, id=221, 982.67125pt x 717.68124pt>
+File: bmemwbfwd.png Graphic file (type png)
+<use bmemwbfwd.png>
+Package pdftex.def Info: bmemwbfwd.png  used on input line 708.
+(pdftex.def)             Requested size: 345.0pt x 251.95876pt.
+<BFU2.png, id=222, 604.2575pt x 433.62pt>
+File: BFU2.png Graphic file (type png)
+<use BFU2.png>
+Package pdftex.def Info: BFU2.png  used on input line 718.
+(pdftex.def)             Requested size: 276.00105pt x 198.0583pt.
+ [15 <./bmemwbfwd.png> <./BFU2.png>]
+Overfull \hbox (18.0pt too wide) in paragraph at lines 742--743
 []\T1/pcr/m/n/10 qemu-system-arm -machine lm3s811evb -cpu cortex-m3 -kernel
  []
 
-[17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 674.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 674.
+[16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 748.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 748.
  (./tp4.aux
 LaTeX Info: Redefining \. on input line 27.
 LaTeX Info: Redefining \% on input line 27.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 674.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 674.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 748.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 748.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 674.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 748.
  ) 
 Here is how much of TeX's memory you used:
- 11750 strings out of 480478
- 170913 string characters out of 5905959
- 470632 words of memory out of 5000000
- 27441 multiletter control sequences out of 15000+600000
- 575838 words of font info for 50 fonts, out of 8000000 for 9000
+ 11778 strings out of 480478
+ 171163 string characters out of 5905959
+ 470557 words of memory out of 5000000
+ 27461 multiletter control sequences out of 15000+600000
+ 580109 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,12n,45p,439b,674s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf-dist/fon
-ts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.p
+{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf-dist/fo
+nts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.p
 fb></usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf-di
-st/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/
-lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share
-/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1
-/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
-fb>
-Output written on tp4.pdf (18 pages, 613437 bytes).
+st/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf-dist/fonts/type1/public/
+lm/lmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/sha
+re/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type
+1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/ucrb8a.pf
+b></usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on tp4.pdf (17 pages, 740786 bytes).
 PDF statistics:
- 427 PDF objects out of 1000 (max. 8388607)
- 382 compressed objects within 4 object streams
- 88 named destinations out of 1000 (max. 500000)
- 445 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 434 PDF objects out of 1000 (max. 8388607)
+ 381 compressed objects within 4 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 470 words of extra memory for PDF output out of 10000 (max. 10000000)
 

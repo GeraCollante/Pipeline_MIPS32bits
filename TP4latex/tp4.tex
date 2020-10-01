@@ -160,7 +160,7 @@ Se solicita implementar las siguientes etapas del procesador:
 	\item \texttt{WB} \textit{(Write Back)}: escritura de resultados en los registros.
 \end{enumerate}
 
-\subsection{Instrucciones}
+\subsection{Instrucciones} \label{section:instr}
 Se solicita implementar las siguientes instrucciones:
 \begin{itemize}
 	\item \texttt{R-Type}: \texttt{SLL, SRL, SRA, SLLV, SRLV, SRAV, ADDU, SUBU, AND, OR, XOR, NOR, SLT}
@@ -169,7 +169,7 @@ Se solicita implementar las siguientes instrucciones:
 \end{itemize}
 
 \subsection{Riesgos}
-El procesador debe tener soporte para los siguientos tipos:
+El procesador debe tener soporte para los siguientes tipos:
 \begin{itemize}
 	\item \textbf{Estructurales}: se producen cuando dos instrucciones tratan de utilizar el mismo recurso en el mismo ciclo.
 	\item \textbf{Datos}: se intenta utilizar un dato antes de que esté preparado. Mantenimiento del orden estricto de lecturas y escrituras.
@@ -189,9 +189,19 @@ Se realizará una breve descripción de cada una de las etapas del procesador.
 \subsection{\texttt{IF}}
 La etapa de \textit{Instruction Fetch} corresponde a la búsqueda de la instrucción a la memoria para posteriormente ejecutarla.
 
+\textbf{Esquemático general e I/O}
+
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=1.4\textwidth,center]{TP4_17.png}
+	\includegraphics[width=0.34\textwidth]{IF_2.png}
+  	\caption{Módulo \texttt{IF}.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=1.4\textwidth,center]{IF.png}
   	\caption{Esquemático del \textit{stage} \texttt{IF}.}
   	\label{fig:funcionamiento.}
   	\end{center}
@@ -201,9 +211,9 @@ La etapa de \textit{Instruction Fetch} corresponde a la búsqueda de la instrucc
 
 Incrementa el valor del \texttt{PC}.
 
-\subsubsection{\texttt{MUX}}
+\subsubsection{\texttt{PC\_MUX}}
 
-Este módulo a través del selector decide cual será el próximo valor del \texttt{PC}, en función a la operación realizada en el 
+Este módulo a través del selector \texttt{\{J,branch\}} decide cual será el próximo valor del \texttt{PC}, ya sea el siguiente \texttt{PC} incrementado, el valor siguiente de PC o el PC del salto o la ramificación.
 
 \subsubsection{\texttt{PC}}
 Asigna el valor al \texttt{PC}, además lo envía a \texttt{INCR} y \texttt{MEM}.
@@ -216,43 +226,33 @@ El módulo posee un arreglo de instrucciones que fueron cargadas previamente, en
 
 Es el \textit{buffer} de salida, por tanto en el próximo flanco positivo de \texttt{clk}, se cargaran los valores haciendo avanzar la instrucción al siguiente \textit{stage}. Recordemos que en el momento que la instrucción se encuentra disponible en algún \textit{buffer} de salida también lo está para el siguiente \textit{stage}.
 
-\subsubsection{Esquemático general e I/O}
+Además posee las entradas \texttt{J} y \texttt{B}, para el caso donde sea necesario \textit{flushear} una instrucción y evitar que esta entre al pipeline ya sea por un salto o ramificación.
+
+También vale mencionar la entrada \texttt{stall}, que nos sirve para conservar los valores en el \textit{buffer} aunque éste se encuentre habilitado realizando una parada del \textit{pipeline}. Esta operación es necesaria para las instrucciones \texttt{lw} y \texttt{sw}.
+
+\clearpage
+
+\subsection{\texttt{ID}}
+El módulo \texttt{DECODE} nos provee funcionalidades para decodificar una instrucción, leer y escribir en GPR y finalmente controlar otras etapas a través de líneas de control.
 
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=0.40\textwidth]{TP4_1.png}
+	\includegraphics[width=0.45\textwidth]{ID_1.png}
   	\caption{Módulo \texttt{IF}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
-En función al contador del programa (\texttt{PC}) se decide cual será la próxima instrucción leída desde memoria.
-
-\textbf{Entradas}
-\begin{itemize}
-	\item \texttt{EX\_MEM\_NPC}: valor de \texttt{PC} obtenido desde \texttt{ADDER} (ver sección~\ref{sec:adder}) en \texttt{EX}.
-	\item \texttt{PCSrc}: selector de \texttt{PC}.
-\end{itemize}
-
-\textbf{Salidas}
-\begin{itemize}
-	\item \texttt{IF\_ID\_IR}: instrucción.
-	\item \texttt{IF\_ID\_NPC}: valor del \texttt{PC}.
-\end{itemize}
-
-\subsection{\texttt{ID}}
-La etapa de \textit{Instruction Decode} corresponde a la decodificación de la instrucción.
-
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=1.4\textwidth,center]{TP4_7.png}
+	\includegraphics[width=1.35\textwidth,center]{ID_2.png}
   	\caption{Esquemático del \textit{stage} \texttt{ID}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
 \subsubsection{\texttt{REG}}
-Es el módulo encargado de almacenar los valores en lo que sería equivalente a la memoria RAM. Para ello se vale de un arreglo de 32 posiciones de 32 bits cada uno. 
+Es el módulo encargado de almacenar valores en registros de propósito genereal. Para ello se vale de un arreglo de 32 posiciones de 32 bits cada uno. 
 
 Para la lectura de valores, \textit{i.e.}, \texttt{A} y \texttt{B} se indexa con \texttt{rs} y \texttt{rt} respectivamente.
 
@@ -280,9 +280,6 @@ Cada línea de control tiene una función especifica que se define en la siguien
 \texttt{ALUSrc} &
   El segundo operando de la \texttt{ALU} viene de \texttt{Read data 2}. &
   El segundo operando de la \texttt{ALU} es el \texttt{sign-extended}, los 16 bits más bajos de la instrucción. \\ \hline
-\texttt{PCSrc} &
-  El \texttt{PC} es reemplazado por la salida del sumador que calcula \texttt{PC+4}. &
-  El \texttt{PC} es reemplazado por la salida del sumador que calcula la rama objetivo. \\ \hline
 \texttt{MemRead} &
   Nada. &
   El contenido de datos de memoria indexado por la dirección de entrada es puesto en la salida de \texttt{Read Data}. \\ \hline
@@ -292,6 +289,14 @@ Cada línea de control tiene una función especifica que se define en la siguien
 \texttt{MemtoReg} &
   El valor que alimenta al registro \texttt{Write Data} viene de la \texttt{ALU}. &
   El valor que alimenta al registro \texttt{Write Data} viene desde la memoria de datos. \\ \hline
+\texttt{J} &
+  No es una instrucción de salto. & Es una instrucción de salto, ya sea \texttt{J}, \texttt{JR} o \texttt{JAL}. \\ \hline
+\texttt{B} &
+  No es una instrucción de rama. & Es una instrucción de rama, ya sea \texttt{BNE} o \texttt{BEQ}. \\ \hline
+\texttt{BNE} &
+  No es una instrucción de rama. & Es la instrucción de rama \texttt{BNE}. \\ \hline
+\texttt{BEQ} &
+  No es una instrucción de rama. & Es la instrucción de rama \texttt{BEQ}. \\ \hline
 \end{tabular}
 \caption{Función de cada señal de control.}
 \label{tab:ctl2-table}
@@ -299,27 +304,34 @@ Cada línea de control tiene una función especifica que se define en la siguien
 
 \clearpage
 
-Básicamente consiste en la implementación de un circuito combinacional de la Tabla~\ref{tab:ctl-table}.
+%Básicamente consiste en la implementación de un circuito combinacional de la Tabla~\ref{tab:ctl-table}.
+%
+%\begin{table}[H]
+%
+%\centering
+%\resizebox{\textwidth}{!}{
+%\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+%\hline
+%\multicolumn{2}{|c|}{\multirow{2}{*}{Instruction}} &
+%  \multicolumn{4}{c|}{Líneas de control de la etapa de cálculo EX} &
+%  \multicolumn{3}{c|}{Líneas de control de etapa de acceso a MEM} &
+%  \multicolumn{2}{c|}{Líneas de control de la etapaWB} \\ \cline{3-11} 
+%\multicolumn{2}{|c|}{} & RegDst & ALUOp1 & ALUOp0 & ALUSrc & Branch & Mem-Read & Mem-Write & Reg-Write & Memto-Reg \\ \hline
+%R-format    & 000000   & 1      & 1      & 0      & 0      & 0      & 0        & 0         & 1         & 0         \\ \hline
+%lw          & 100011   & 0      & 0      & 0      & 1      & 0      & 1        & 0         & 1         & 1         \\ \hline
+%sw          & 101011   & x      & 0      & 0      & 1      & 0      & 0        & 1         & 0         & x         \\ \hline
+%beq         & 000100   & x      & 0      & 1      & 0      & 1      & 0        & 0         & 0         & x         \\ \hline
+%\end{tabular}}
+%\caption{Control de líneas}
+%\label{tab:ctl-table}
+%\end{table}
 
-\begin{table}[H]
+\subsubsection{\texttt{JR\_UNIT}}
+Unidad encargada de verificar si la instrucción es \texttt{JR}, en caso que lo sea se encarga de \textit{switchear} a través de un \texttt{mux} los 26 bits LSB por el valor indicado en el operando.
+Además cambia el \texttt{opcode} al de una operación \texttt{J} (recordemos que la instrucción \texttt{JR} posee \texttt{opcode = b000000}, por tanto podría ser malinterpretada como una operación \texttt{NOP}). 
 
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\multicolumn{2}{|c|}{\multirow{2}{*}{Instruction}} &
-  \multicolumn{4}{c|}{Líneas de control de la etapa de cálculo EX} &
-  \multicolumn{3}{c|}{Líneas de control de etapa de acceso a MEM} &
-  \multicolumn{2}{c|}{Líneas de control de la etapaWB} \\ \cline{3-11} 
-\multicolumn{2}{|c|}{} & RegDst & ALUOp1 & ALUOp0 & ALUSrc & Branch & Mem-Read & Mem-Write & Reg-Write & Memto-Reg \\ \hline
-R-format    & 000000   & 1      & 1      & 0      & 0      & 0      & 0        & 0         & 1         & 0         \\ \hline
-lw          & 100011   & 0      & 0      & 0      & 1      & 0      & 1        & 0         & 1         & 1         \\ \hline
-sw          & 101011   & x      & 0      & 0      & 1      & 0      & 0        & 1         & 0         & x         \\ \hline
-beq         & 000100   & x      & 0      & 1      & 0      & 1      & 0        & 0         & 0         & x         \\ \hline
-\end{tabular}}
-\caption{Control de líneas}
-\label{tab:ctl-table}
-\end{table}
+\subsubsection{\texttt{BRANCH\_UNIT}}
+Unidad encargada de realizar los cálculos para ver si una rama es tomada o no. Se apoya en multiplexores controlados a través de la \texttt{BRANCH FORWARDING UNIT} con el próposito de evitar peligros de datos. 
 
 \subsubsection{\texttt{S-EXTEND}}
 Incrementa el tamaño de la instrucción de 16bits a 32bits, replicando el bit de mayor orden en \texttt{[31:16]}.
@@ -327,77 +339,74 @@ Incrementa el tamaño de la instrucción de 16bits a 32bits, replicando el bit d
 \subsubsection{\texttt{ID\_EX}}
 \textit{Buffer} de salida encargado de cargar los valores para la siguiente etapa, recordemos que se activa por \textit{rise edge} de \texttt{clk}.
 
-\subsubsection{Esquemático general e I/O}
-El módulo \texttt{DECODE} nos provee funcionalidades para decodificar una instrucción, leer y escribir en RAM y finalmente controlar otras etapas a través de líneas de control.
+%\textbf{Entradas}
+%\begin{itemize}
+%	\item \texttt{IF\_ID\_Instr}: instrucción proveniente de \texttt{IF}.
+%	\item \texttt{IF\_ID\_NPC}: valor del \texttt{PC}.
+%	\item \texttt{MEM\_WB\_Writedata}: dato a escribir en memoria.
+%	\item \texttt{MEM\_WB\_Writereg}: posición donde se escribirá el dato.
+%	\item \texttt{RegWrite}: habilitación de escritura.
+%\end{itemize}
+%
+%\textbf{Salidas}
+%\begin{itemize}
+%	\item \texttt{EX}, \texttt{M}, \texttt{WB}: líneas de control.
+%	\item \texttt{IR}: instrucción.
+%	\item \texttt{NPC}: valor del contador de programa.
+%	\item \texttt{instruot\_1511}: \texttt{rd}.
+%	\item \texttt{instruot\_2016}: \texttt{rt}.
+%	\item \texttt{instruot\_2521}: \texttt{rs}.
+%	\item \texttt{rdata1out}: \texttt{A}.
+%	\item \texttt{rdata2out}: \texttt{B}.
+%\end{itemize}
+
+\subsection{\texttt{EX}}
+Este módulo es el encargado de realizar las diferentes operaciones con los operandos en la ALU.
+
+\textbf{Esquemático general e I/O}
 
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=0.32\textwidth]{TP4_3.png}
-  	\caption{Módulo \texttt{ID}.}
+	\includegraphics[width=0.4\textwidth,center]{TP4_11.png}
+  	\caption{Módulo \texttt{EX}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
-\textbf{Entradas}
-\begin{itemize}
-	\item \texttt{IF\_ID\_Instr}: instrucción proveniente de \texttt{IF}.
-	\item \texttt{IF\_ID\_NPC}: valor del \texttt{PC}.
-	\item \texttt{MEM\_WB\_Writedata}: dato a escribir en memoria.
-	\item \texttt{MEM\_WB\_Writereg}: posición donde se escribirá el dato.
-	\item \texttt{RegWrite}: habilitación de escritura.
-\end{itemize}
-
-\textbf{Salidas}
-\begin{itemize}
-	\item \texttt{EX}, \texttt{M}, \texttt{WB}: líneas de control.
-	\item \texttt{IR}: instrucción.
-	\item \texttt{NPC}: valor del contador de programa.
-	\item \texttt{instruot\_1511}: \texttt{rd}.
-	\item \texttt{instruot\_2016}: \texttt{rt}.
-	\item \texttt{instruot\_2521}: \texttt{rs}.
-	\item \texttt{rdata1out}: \texttt{A}.
-	\item \texttt{rdata2out}: \texttt{B}.
-\end{itemize}
-
-\subsection{\texttt{EX}}
-
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=1.5\textwidth,center]{TP4_9.png}
+	\includegraphics[width=1.5\textwidth,center]{EX_2.png}
   	\caption{Esquemático del \textit{stage} \texttt{EX}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
 \subsubsection{\texttt{ALU\_CONTROL}}
-Este módulo nos es útil para controlar la operación ejecutada por la ALU. Para esta labor utiliza \texttt{EX[2:1]} y el \textit{opcode} que equivale a \texttt{IR[31:26]}, entradas de la Tabla~\ref{tab:alu-table} a implementar.
+Este módulo nos es útil para controlar la operación ejecutada por la ALU. Para esta labor se sirve del \texttt{opcode} y \texttt{funct} de la instrucción.
 
-\begin{table}[H]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|c|l|c|l|c|}
-\hline
-\textbf{Opcode} &
-  \multicolumn{1}{l|}{\textbf{ALUOp}} &
-  \textbf{Operación de la instrucción} &
-  \multicolumn{1}{l|}{\textbf{Campo funct}} &
-  \textbf{Acción deseada de ALU} &
-  \multicolumn{1}{l|}{\textbf{Entrada de control ALU}} \\ \hline
-LW           & 00 & load word        & xxxxxx & add              & 0010 \\ \hline
-SW           & 00 & store word       & xxxxxx & add              & 0010 \\ \hline
-Branch equal & 01 & branch equal     & xxxxxx & substract        & 0110 \\ \hline
-R-type       & 10 & add              & 100000 & add              & 0010 \\ \hline
-R-type       & 10 & substract        & 100010 & substract        & 0110 \\ \hline
-R-type       & 10 & and              & 100100 & and              & 0000 \\ \hline
-R-type       & 10 & or               & 100101 & or               & 0001 \\ \hline
-R-type       & 10 & set on less than & 101010 & set on less than & 0111 \\ \hline
-\end{tabular}}
-\caption{Tabla de control de ALU}
-\label{tab:alu-table}
-\end{table}
-
-\subsubsection{\texttt{ADDER}} \label{sec:adder}
-Retorna como salida el valor actual del \texttt{PC} al de la instrucción, lo que posiblemente si se dan las condiciones sea el nuevo valor del \texttt{PC}.
+%\begin{table}[H]
+%\centering
+%\resizebox{\textwidth}{!}{
+%\begin{tabular}{|l|c|l|c|l|c|}
+%\hline
+%\textbf{Opcode} &
+%  \multicolumn{1}{l|}{\textbf{ALUOp}} &
+%  \textbf{Operación de la instrucción} &
+%  \multicolumn{1}{l|}{\textbf{Campo funct}} &
+%  \textbf{Acción deseada de ALU} &
+%  \multicolumn{1}{l|}{\textbf{Entrada de control ALU}} \\ \hline
+%LW           & 00 & load word        & xxxxxx & add              & 0010 \\ \hline
+%SW           & 00 & store word       & xxxxxx & add              & 0010 \\ \hline
+%Branch equal & 01 & branch equal     & xxxxxx & substract        & 0110 \\ \hline
+%R-type       & 10 & add              & 100000 & add              & 0010 \\ \hline
+%R-type       & 10 & substract        & 100010 & substract        & 0110 \\ \hline
+%R-type       & 10 & and              & 100100 & and              & 0000 \\ \hline
+%R-type       & 10 & or               & 100101 & or               & 0001 \\ \hline
+%R-type       & 10 & set on less than & 101010 & set on less than & 0111 \\ \hline
+%\end{tabular}}
+%\caption{Tabla de control de ALU}
+%\label{tab:alu-table}
+%\end{table}
 
 \subsubsection{\texttt{ALU\_MUX}}
 La \texttt{FU} (\textit{Forwarding Unit}) es la encargada de los controles de peligros así como también la encargada de decidir los valores que operará la \texttt{ALU} ya que \texttt{A} está definida por \texttt{FORWARD\_MUX\_A} y \texttt{B} si bien se define por \texttt{sel} (\texttt{EX[0]}), \texttt{b} es provisto por \texttt{FORWARD\_MUX\_B}.
@@ -405,12 +414,13 @@ La \texttt{FU} (\textit{Forwarding Unit}) es la encargada de los controles de pe
 Esto se explica en mayor detalle en la sección \ref{sec:fu}.
 
 \subsubsection{\texttt{ALU}}
-La \texttt{ALU} es capaz de ejecutar las operaciones de suma, resta, \texttt{and}, \texttt{or}  y si \texttt{A<B} entonces \texttt{1}, sino \texttt{0}.
-
-Además provee un cable \texttt{zero} para las operaciones de rama.
+La \texttt{ALU} es capaz de ejecutar todas las operaciones indicadas en la sección~\ref{section:instr}, ya sean de \textit{R-type} como de \textit{I-type}.
 
 \subsubsection{\texttt{BOTTOM\_MUX}} \label{subsubsection}
 Este módulo puede consultarse en la Sección~\ref{sec:bottom}.
+
+\subsubsection{\texttt{JAL UNIT}}
+Unidad especial encargada de detectar una instrucción \texttt{JAL} con el objetivo de cargar el \texttt{PC} en el registro \texttt{\$ra} (recordar que esta instrucción es complementaria a la instrucción \texttt{JR \$ra}), apoyandose en el modulo \texttt{alu\_result\_mux} que es un multiplexor entre la salida de la ALU y el valor del \texttt{PC}. En caso que no sea detectado todo sigue su curso normal.
 
 \subsubsection{\texttt{EX\_MEM}}
 \textit{Buffer} de salida del módulo.
@@ -421,43 +431,42 @@ Consultar Tabla~\ref{tab:forwardA-table}.
 \subsubsection{\texttt{FORWARD\_MUX\_B}}
 Consultar Tabla~\ref{tab:forwardB-table}.
 
-\subsubsection{Esquemático general e I/O}
+%\textbf{Entradas}
+%\begin{itemize}
+%	\item \texttt{EX, M, W}: líneas de control.
+%	\item \texttt{NPC}: valor del \texttt{PC}.
+%	\item \texttt{IR}: instrucción.
+%	\item \texttt{forward}: entradas a los multiplexores de \textit{forwarding}.
+%	\item \texttt{instrout\_1511}: \texttt{rd}.
+%	\item \texttt{instrout\_2016}: \texttt{rt}.
+%	\item \texttt{mem\_alu\_result}: resultado inmediato de la \texttt{ALU}.
+%	\item \texttt{rdata}: valores obtenidos desde \texttt{ID}.
+%	\item \texttt{rdata}: valor de \texttt{WB}.
+%		
+%\end{itemize}
+%
+%\textbf{Salidas}
+%\begin{itemize}
+%	\item \texttt{add\_result}: resultado de \texttt{adder}.
+%	\item \texttt{alu\_result}: resultado inmediato de la \texttt{ALU}.
+%	\item \texttt{five\_bit\_muxout}: si se dan las condiciones, \texttt{rd}.
+%	\item \texttt{m\_cltout} y \texttt{wb\_ctlout}: líneas de control.
+%	\item \texttt{zero}: útil para rama.
+%	\item \texttt{rdata2out}: valor desde \texttt{forward\_mux\_a}.
+%\end{itemize}
+
+\subsection{\texttt{FORWARDING UNIT}} \label{sec:fu}
+
+\textbf{Esquemático general e I/O}
 
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=0.4\textwidth,center]{TP4_11.png}
-  	\caption{Módulo \texttt{EX}.}
+	\includegraphics[width=0.5\textwidth,center]{TP4_10.png}
+  	\caption{Esquemático del módulo \texttt{FU}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
-
-\textbf{Entradas}
-\begin{itemize}
-	\item \texttt{EX, M, W}: líneas de control.
-	\item \texttt{NPC}: valor del \texttt{PC}.
-	\item \texttt{IR}: instrucción.
-	\item \texttt{forward}: entradas a los multiplexores de \textit{forwarding}.
-	\item \texttt{instrout\_1511}: \texttt{rd}.
-	\item \texttt{instrout\_2016}: \texttt{rt}.
-	\item \texttt{mem\_alu\_result}: resultado inmediato de la \texttt{ALU}.
-	\item \texttt{rdata}: valores obtenidos desde \texttt{ID}.
-	\item \texttt{rdata}: valor de \texttt{WB}.
-		
-\end{itemize}
-
-\textbf{Salidas}
-\begin{itemize}
-	\item \texttt{add\_result}: resultado de \texttt{adder}.
-	\item \texttt{alu\_result}: resultado inmediato de la \texttt{ALU}.
-	\item \texttt{five\_bit\_muxout}: si se dan las condiciones, \texttt{rd}.
-	\item \texttt{m\_cltout} y \texttt{wb\_ctlout}: líneas de control.
-	\item \texttt{zero}: útil para rama.
-	\item \texttt{rdata2out}: valor desde \texttt{forward\_mux\_a}.
-\end{itemize}
-
-
-\subsection{\texttt{FORWARDING UNIT}} \label{sec:fu}
 En determinadas ocasiones en una etapa necesitamos un dato que aún no se ha terminado de procesar en otra, o quizás si pero aún el dato no ha sido guardado. Esto puede llevar a lo que se denomina parada o \textit{stall} del \textit{pipeline}, ya que necesitamos uno o más ciclos de reloj para obtener el dato. Esto acomete contra nuestro objetivo de rendimiento, por tanto necesitamos una manera de combatirlo.
 
 Esto significa \textit{e.g.} que cuando una instrucción intenta usar un registro en su etapa \texttt{EX}, una instrucción anterior intenta escribir en su etapa \texttt{WB}, pero en realidad necesitamos los valores como entradas a la \texttt{ALU} más que en memoria.
@@ -527,130 +536,195 @@ Estas condiciones serán implementadas a través de dos multiplexores, \texttt{F
 
 \subsubsection{\texttt{BOTTOM\_MUX}} \label{sec:bottom}
 Este módulo es útil para obtener \texttt{rd} en el \textit{buffer} \texttt{EX\_MEM}, debido a que utiliza como selector a \texttt{EX[3]} que equivale a \texttt{RegDst}. Cuando este valor es 1, entonces selecciona \texttt{rd} como salida del multiplexor.
+%
+%Esto también es beneficioso porque esta condición conlleva que \texttt{Reg-Write} este habilitado por tanto se escribirá, como observamos en la Tabla~\ref{tab:ctl-table}.
 
-Esto también es beneficioso porque esta condición conlleva que \texttt{Reg-Write} este habilitado por tanto se escribirá, como observamos en la Tabla~\ref{tab:ctl-table}.
+%\textbf{Entradas}
+%
+%\begin{itemize}
+%	\item \texttt{ex\_mem\_wb[1] = EX/MEM.RegWrite}
+%	\item \texttt{five\_bit\_mux\_out = EX/MEM.RegisterRd}
+%	\item \texttt{mem\_Write\_reg = MEM/WB.RegisterRd}
+%	\item \texttt{mem\_wb\_wb[1] = MEM/WB.RegWrite}
+%	\item \texttt{rs = ID/EX.RegisterRs}
+%	\item \texttt{rt = ID/EX.RegisterRt}
+%\end{itemize}
+%
+%\textbf{Salidas}: las respectivas entradas a cada uno de los multiplexores ubicados en el \textit{stage} \texttt{EX}.
+%
+%\begin{itemize}
+%	\item \texttt{forward\_a\_sel}
+%	\item \texttt{forward\_b\_sel} 
+%\end{itemize}
 
-\subsubsection{Esquemático general e I/O}
+\subsection{\texttt{MEM}}
+
+\textbf{Esquemático general e I/O}
 
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=0.5\textwidth,center]{TP4_10.png}
-  	\caption{Esquemático del módulo \texttt{FU}.}
+	\includegraphics[width=0.36\textwidth,center]{MEM_1.png}
+  	\caption{Esquemático del módulo \texttt{MEM}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
-\textbf{Entradas}
-
-\begin{itemize}
-	\item \texttt{ex\_mem\_wb[1] = EX/MEM.RegWrite}
-	\item \texttt{five\_bit\_mux\_out = EX/MEM.RegisterRd}
-	\item \texttt{mem\_Write\_reg = MEM/WB.RegisterRd}
-	\item \texttt{mem\_wb\_wb[1] = MEM/WB.RegWrite}
-	\item \texttt{rs = ID/EX.RegisterRs}
-	\item \texttt{rt = ID/EX.RegisterRt}
-\end{itemize}
-
-\textbf{Salidas}: las respectivas entradas a cada uno de los multiplexores ubicados en el \textit{stage} \texttt{EX}.
-
-\begin{itemize}
-	\item \texttt{forward\_a\_sel}
-	\item \texttt{forward\_b\_sel} 
-\end{itemize}
-
-\subsection{\texttt{MEM}}
-
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=1.5\textwidth,center]{TP4_13.png}
+	\includegraphics[width=1.5\textwidth,center]{MEM_2.png}
   	\caption{Esquemático del \textit{stage} \texttt{MEM}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
 \subsubsection{\texttt{D\_MEM}}
-Equivale a la memoria ROM, posee un arreglo de 128 posiciones de 32 bits cada una.
+Equivale a la memoria RAM, posee un arreglo de 128 posiciones de 32 bits cada una.
 
 Su funcionamiento es sencillo, \texttt{Address} funciona como índice del arreglo y tanto para leer como para escribir debemos setear los valores \texttt{MemWrite} como \texttt{MemRead} respectivamente como vimos en la Tabla~\ref{tab:ctl2-table}.
 
 \subsubsection{\texttt{MEM\_WB}}
 \textit{Buffer} de salida del \textit{stage}.
 
-\subsubsection{\texttt{AND\_Gate}}
-Realiza la operación \texttt{M[2]\&\&zero}, (recordemos que \texttt{M[2]} es \textit{branch} en la Tabla~\ref{tab:ctl-table}) obteniendo la salida \texttt{PCSrc} que luego será útil para decidir en el mux de \texttt{IF} cúal será el próximo \texttt{PC}.
+%\subsubsection{Esquemático general e I/O}
+%
+%\begin{figure}[H]
+%	\begin{center}				
+%	\includegraphics[width=0.5\textwidth,center]{TP4_14.png}
+%  	\caption{Módulo \texttt{MEM}.}
+%  	\label{fig:funcionamiento.}
+%  	\end{center}
+%\end{figure}
 
-\subsubsection{Esquemático general e I/O}
-
-\begin{figure}[H]
-	\begin{center}				
-	\includegraphics[width=0.5\textwidth,center]{TP4_14.png}
-  	\caption{Módulo \texttt{MEM}.}
-  	\label{fig:funcionamiento.}
-  	\end{center}
-\end{figure}
-
-\textbf{Entradas}
-\begin{itemize}
-	\item \texttt{ALU\_result\_in}: resultado de la \texttt{ALU}.
-	\item \texttt{MemRead}: \texttt{M[1]}.
-	\item \texttt{MemWrite}: \texttt{M[0]}.
-	\item \texttt{Write\_Data}: \texttt{rdata2out}.
-	\item \texttt{Write\_reg\_in}: \texttt{rd} (\texttt{EX[3]=1}) o \texttt{rt}.
-	\item \texttt{control\_wb\_in}: línea de control.
-	\item \texttt{m\_ctlout}: \texttt{M[2]}.
-	\item \texttt{zero}: proviene desde la \texttt{ALU}.
-\end{itemize}
-
-\textbf{Salidas}
-\begin{itemize}
-	\item \texttt{PCSrc}: selector de mux en \texttt{IF}.
-	\item \texttt{Read\_data}: datos leídos.
-	\item \texttt{mem\_ALU\_results} = \texttt{ALU\_result\_in}
-	\item \texttt{mem\_Write\_reg} = \texttt{Write\_reg\_in}
-	\item \texttt{mem\_control\_wb} = \texttt{control\_wb\_in}
-\end{itemize}
+%\textbf{Entradas}
+%\begin{itemize}
+%	\item \texttt{ALU\_result\_in}: resultado de la \texttt{ALU}.
+%	\item \texttt{MemRead}: \texttt{M[1]}.
+%	\item \texttt{MemWrite}: \texttt{M[0]}.
+%	\item \texttt{Write\_Data}: \texttt{rdata2out}.
+%	\item \texttt{Write\_reg\_in}: \texttt{rd} (\texttt{EX[3]=1}) o \texttt{rt}.
+%	\item \texttt{control\_wb\_in}: línea de control.
+%	\item \texttt{m\_ctlout}: \texttt{M[2]}.
+%	\item \texttt{zero}: proviene desde la \texttt{ALU}.
+%\end{itemize}
+%
+%\textbf{Salidas}
+%\begin{itemize}
+%	\item \texttt{PCSrc}: selector de mux en \texttt{IF}.
+%	\item \texttt{Read\_data}: datos leídos.
+%	\item \texttt{mem\_ALU\_results} = \texttt{ALU\_result\_in}
+%	\item \texttt{mem\_Write\_reg} = \texttt{Write\_reg\_in}
+%	\item \texttt{mem\_control\_wb} = \texttt{control\_wb\_in}
+%\end{itemize}
 
 \subsection{\texttt{WB}}
 
-\begin{figure}[H]
-	\begin{center}				
-	\includegraphics[width=0.9\textwidth,center]{TP4_15.png}
-  	\caption{Esquemático del \textit{stage} \texttt{WB}.}
-  	\label{fig:funcionamiento.}
-  	\end{center}
-\end{figure}
-
 El funcionamiento de este módulo es muy simple, básicamente decide a través del selector \texttt{MemtoReg} (Tabla~\ref{tab:ctl2-table}) si \texttt{WriteData} será el valor leído desde memoria o el resultado de la \texttt{ALU}.
 
-\subsubsection{Esquemático general e I/O}
+\textbf{Esquemático general e I/O}
 
 \begin{figure}[H]
 	\begin{center}				
-	\includegraphics[width=0.5\textwidth,center]{TP4_16.png}
+	\includegraphics[width=0.39\textwidth,center]{WB_1.png}
   	\caption{Módulo \texttt{WB}.}
   	\label{fig:funcionamiento.}
   	\end{center}
 \end{figure}
 
-\textbf{Entradas}
-\begin{itemize}
-	\item \texttt{ALUResult}: resultado de la \texttt{ALU}.
-	\item \texttt{MemtoReg}: \texttt{mem\_control\_wb[0]}.
-	\item \texttt{ReadData}: datos desde la memoria.
-\end{itemize}
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=0.6\textwidth,center]{WB_2.png}
+  	\caption{Esquemático del \textit{stage} \texttt{WB}.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
 
-\textbf{Salidas}
-\begin{itemize}
-	\item \texttt{WriteData}: datos para \texttt{ID} y \texttt{EX}.
-\end{itemize}
+%\textbf{Entradas}
+%\begin{itemize}
+%	\item \texttt{ALUResult}: resultado de la \texttt{ALU}.
+%	\item \texttt{MemtoReg}: \texttt{mem\_control\_wb[0]}.
+%	\item \texttt{ReadData}: datos desde la memoria.
+%\end{itemize}
+%
+%\textbf{Salidas}
+%\begin{itemize}
+%	\item \texttt{WriteData}: datos para \texttt{ID} y \texttt{EX}.
+%\end{itemize}
+\subsection{\texttt{DEBUG UNIT}}
+Debido a la imposibilidad de utilizar la placa físicamente se solicitó la creación de una unidad de \textit{debugging} cuyo propósito era el de emular el paso a paso del \textit{pipeline} siendo cada paso accionado a través de un botón.
+
+Esto generaba un pulso \texttt{enable} que es entrada de cada uno de los \textit{buffers} de salida de cada etapa. Así para avanzar en el \textit{pipeline} era condición necesaria que la señal \texttt{enable} estuviera en alto además de la señal del \texttt{clk}.
+
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=1\textwidth,center]{DU.png}
+  	\caption{Comportamiento de las señales.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
+
+\subsection{\texttt{HAZARD DETECTION UNIT}}
+Su tarea es detectar un peligro de datos que sucedería en el caso que una función \texttt{lw} o \texttt{sw} necesite un dato que aún no se encuentra disponible. 
+
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=0.45\textwidth,center]{HDU.png}
+  	\caption{Comportamiento de las señales.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
+
+En el caso que eso ocurra se realiza una parada congelando el \textit{buffer} \texttt{IF\_ID} para que no avance permitiendo así avanzar a las demás etapas del \textit{pipeline} y se comprueban varias condiciones:
+
+\texttt{if(IdExMemRead \&\&}
+
+\texttt{(IdExRegRt == IfIdRegRs)}
+\texttt{|| (IdExRegRt == IfIdRegRt))}
+
+\texttt{stall the pipeline}
+
+\subsection{\texttt{BRANCH FORWARDING UNIT}}
+
+Se tomó la decisión de ejecutar las operaciones de rama en el stage \texttt{ID} debido a que esto sólo necesitaba realizar en una ocasión \textit{flush}, en vez de tres que es lo que hubiera sucedido si realizabamos estas operaciones en el stage \texttt{MEM} como se propone en el libro \textit{Arquitectura de Computadoras} de \textit{Hennesy \& Patterson}.
+
+El inconveniente con realizar estas operaciones en \texttt{ID} es que esto puede llevar a riesgos de datos que debemos solucionar.
+
+Básicamente los riesgos que podemos sufrir son desde los \textit{buffers} \texttt{EX\_MEM}, \texttt{MEM\_WB} e incluso \texttt{ID\_EX} (pero este caso no será analizado porque es salvado por la \texttt{HDU}). 
+
+\subsubsection{\textit{Forwarding} desde \texttt{EX\_MEM}}
+Podemos observar que la operación 2 (\texttt{or}) realiza una operación y guarda el resultado en el operando \texttt{\$v0}, pero el inconveniente es que aún ese resultado no se guardó y \texttt{beq} lo necesita, por tanto hacemos \textit{forwarding}.
+
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=1\textwidth,center]{bexmemfwd.png}
+  	\caption{Forwarding desde \texttt{EX\_MEM}.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
+
+En este caso, en el momento que el resultado es guardado es solicitado por \texttt{bne}, por tanto debemos realizar un \textit{forwarding} desde \texttt{MEM\_WB}.
+
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=1\textwidth,center]{bmemwbfwd.png}
+  	\caption{Forwarding desde \texttt{MEM\_WB}.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
+
+\subsubsection{Funcionamiento}
+
+\begin{figure}[H]
+	\begin{center}				
+	\includegraphics[width=0.8\textwidth,center]{BFU2.png}
+  	\caption{Forwarding desde \texttt{MEM\_WB}.}
+  	\label{fig:funcionamiento.}
+  	\end{center}
+\end{figure}
+
+El funcionamiento de la \texttt{BFU} se resume en el siguiente gráfico donde observamos que es la encargada a través de los selectores de los multiplexores de elegir los operandos \texttt{reg1} y \texttt{reg2} que serán necesarios en el cálculo para decidir si la rama será tomada o no.
 
 \section{Conclusiones}
 
-\texttt{NAQV}
-
-El trabajo en si mismo no presentaba una dificultad demasiado alta, sin embargo su desarrollo fue retrasado debía a que determinados pasos requerían modificaciones del \textit{linker} o agregar determinadas librerías que no estaban en el proyecto en un primer momento. Pero una vez que se sorteados estos obstáculos el desarrollo fue mucho más veloz.
-
-Fue una grata experiencia para adquirir roce con el desarrollo de sistemas operativos de tiempo real, se comprobó su funcionamiento y su potencial para las áreas para la cual ha sido desarrollada esta tecnología.
 
 \section{Apéndices}
 
