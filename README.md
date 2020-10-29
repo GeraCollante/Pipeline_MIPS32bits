@@ -75,9 +75,9 @@ La etapa de *Instruction Fetch* corresponde a la búsqueda de la instrucción a 
 
 **Esquemático general e I/O**
 
-![Módulo `IF`.](IF_2.png){#fig:funcionamiento. width="34%"}
+![](tp4latex/IF_2.png)
 
-![Esquemático del *stage* `IF`.](IF.png){#fig:funcionamiento. width="140%"}
+![](tp4latex/IF.png)
 
 - `INCR`: Incrementa el valor del `PC`.
 
