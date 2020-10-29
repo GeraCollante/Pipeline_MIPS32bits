@@ -75,9 +75,9 @@ La etapa de *Instruction Fetch* corresponde a la búsqueda de la instrucción a 
 
 **Esquemático general e I/O**
 
-![](tp4latex/IF_2.png)
+![Módulo `IF`.](TP4latex/IF_2.png)
 
-![](tp4latex/IF.png)
+![Esquemático del *stage* `IF`.](TP4latex/IF.png)
 
 - `INCR`: Incrementa el valor del `PC`.
 
@@ -93,9 +93,9 @@ La etapa de *Instruction Fetch* corresponde a la búsqueda de la instrucción a 
 
 El módulo `DECODE` nos provee funcionalidades para decodificar una instrucción, leer y escribir en GPR y finalmente controlar otras etapas a través de líneas de control.
 
-![Módulo `IF`.](ID_1.png){#fig:funcionamiento. width="45%"}
+![Módulo `ID`.](TP4latex/ID_1.png)
 
-![Esquemático del *stage* `ID`.](ID_2.png){#fig:funcionamiento. width="135%"}
+![Esquemático del *stage* `ID`.](TP4latex/ID_2.png)
 
 - `REG`: Es el módulo encargado de almacenar valores en registros de propósito genereal. Para ello se vale de un arreglo de 32 posiciones de 32 bits cada uno. Para la lectura de valores, *i.e.*, `A` y `B` se indexa con `rs` y `rt` respectivamente. Sin embargo para escribir en la memoria es necesario que `regwrite` esté en alto, y así en el *rise edge* del `clk` se escribirán los datos de `writedata` en la pocisión indexada por `rd`.
 
@@ -115,9 +115,9 @@ Este módulo es el encargado de realizar las diferentes operaciones con los oper
 
 **Esquemático general e I/O**
 
-![Módulo `EX`.](TP4_11.png){#fig:funcionamiento. width="40%"}
+![Módulo `EX`.](TP4latex/TP4_11.png)
 
-![Esquemático del *stage* `EX`.](EX_2.png){#fig:funcionamiento. width="150%"}
+![Esquemático del *stage* `EX`.](TP4latex/EX_2.png)
 
 - `ALU_CONTROL`: este módulo nos es útil para controlar la operación ejecutada por la ALU. Para esta labor se sirve del `opcode` y `funct` de la instrucción.
 
@@ -139,7 +139,7 @@ Este módulo es el encargado de realizar las diferentes operaciones con los oper
 
 **Esquemático general e I/O**
 
-![Esquemático del módulo `FU`.](TP4_10.png){#fig:funcionamiento. width="50%"}
+![Esquemático del módulo `FU`.](TP4latex/TP4_10.png)
 
 En determinadas ocasiones en una etapa necesitamos un dato que aún no se ha terminado de procesar en otra, o quizás si pero aún el dato no ha sido guardado. Esto puede llevar a lo que se denomina parada o *stall* del *pipeline*, ya que necesitamos uno o más ciclos de reloj para obtener el dato. Esto acomete contra nuestro objetivo de rendimiento, por tanto necesitamos una manera de combatirlo.
 
@@ -183,21 +183,22 @@ Estas condiciones serán implementadas a través de dos multiplexores, `ForwardA
 
 **Esquemático general e I/O**
 
-![Esquemático del módulo `MEM`.](MEM_1.png){#fig:funcionamiento. width="36%"}
+![Esquemático del módulo `MEM`.](TP4latex/MEM_1.png)
 
-![Esquemático del *stage* `MEM`.](MEM_2.png){#fig:funcionamiento. width="150%"}
+![Esquemático del *stage* `MEM`.](TP4latex/MEM_2.png)
 
 - `D_MEM`: Equivale a la memoria RAM, posee un arreglo de 128 posiciones de 32 bits cada una. Su funcionamiento es sencillo, `Address` funciona como índice del arreglo y tanto para leer como para escribir debemos setear los valores `MemWrite` como `MemRead` respectivamente como vimos en la Tabla [1](#tab:ctl2-table){reference-type="ref" reference="tab:ctl2-table"}.
 
 - `MEM_WB`: *Buffer* de salida del *stage*.
 
-- `WB`: El funcionamiento de este módulo es muy simple, básicamente decide a través del selector `MemtoReg` si `WriteData` será el valor leído desde memoria o el resultado de la `ALU`.
+### `WB`
+El funcionamiento de este módulo es muy simple, básicamente decide a través del selector `MemtoReg` si `WriteData` será el valor leído desde memoria o el resultado de la `ALU`.
 
 **Esquemático general e I/O**
 
-![Módulo `WB`.](WB_1.png){#fig:funcionamiento. width="39%"}
+![Módulo `WB`.](TP4latex/WB_1.png)
 
-![Esquemático del *stage* `WB`.](WB_2.png){#fig:funcionamiento. width="60%"}
+![Esquemático del *stage* `WB`.](TP4latex/WB_2.png)
 
 ### `DEBUG UNIT`
 
@@ -205,13 +206,13 @@ Debido a la imposibilidad de utilizar la placa físicamente se solicitó la crea
 
 Esto generaba un pulso `enable` que es entrada de cada uno de los *buffers* de salida de cada etapa. Así para avanzar en el *pipeline* era condición necesaria que la señal `enable` estuviera en alto además de la señal del `clk`.
 
-![Comportamiento de las señales.](DU.png){#fig:funcionamiento. width="100%"}
+![Comportamiento de las señales.](TP4latex/DU.png)
 
 ### `HAZARD DETECTION UNIT`
 
 Su tarea es detectar un peligro de datos que sucedería en el caso que una función `lw` o `sw` necesite un dato que aún no se encuentra disponible.
 
-![Comportamiento de las señales.](HDU.png){#fig:funcionamiento. width="45%"}
+![Comportamiento de las señales.](TP4latex/HDU.png)
 
 En el caso que eso ocurra se realiza una parada congelando el *buffer* `IF_ID` para que no avance permitiendo así avanzar a las demás etapas del *pipeline* y se comprueban varias condiciones:
 
@@ -233,15 +234,15 @@ Básicamente los riesgos que podemos sufrir son desde los *buffers* `EX_MEM`, `M
 
 Podemos observar que la operación 2 (`or`) realiza una operación y guarda el resultado en el operando `$v0`, pero el inconveniente es que aún ese resultado no se guardó y `beq` lo necesita, por tanto hacemos *forwarding*.
 
-![Forwarding desde `EX_MEM`.](bexmemfwd.png){#fig:funcionamiento. width="100%"}
+![Forwarding desde `EX_MEM`.](TP4latex/bexmemfwd.png)
 
 En este caso, en el momento que el resultado es guardado es solicitado por `bne`, por tanto debemos realizar un *forwarding* desde `MEM_WB`.
 
-![Forwarding desde `MEM_WB`.](bmemwbfwd.png){#fig:funcionamiento. width="100%"}
+![Forwarding desde `MEM_WB`.](TP4latex/bmemwbfwd.png)
 
 ### Funcionamiento
 
-![Forwarding desde `MEM_WB`.](BFU2.png){#fig:funcionamiento. width="80%"}
+![Forwarding desde `MEM_WB`.](TP4latex/BFU2.png)
 
 El funcionamiento de la `BFU` se resume en el siguiente gráfico donde observamos que es la encargada a través de los selectores de los multiplexores de elegir los operandos `reg1` y `reg2` que serán necesarios en el cálculo para decidir si la rama será tomada o no.
 
@@ -251,7 +252,7 @@ Este reporte nos sirve para interpretar cuestiones referentes al tiempo que tard
 
 En nuestro caso con un *clk* de $100Mhz$ no cumplíamos los requerimientos previstos obteniendo valores negativos, *i.e.* debemos ralentizar el *clk* para que todos los paths de nuestro diseño se ejecuten correctamente. Por tanto, bajamos el *clk* a $30Mhz$ obteniendo así valores correctos que veremos a continuación en la siguiente imagen.
 
-![Reporte de análisis de tiempo.](TAR.png){#fig:funcionamiento. width="100%"}
+![Reporte de análisis de tiempo.](TP4latex/TAR.png)
 
 - Parámetros:
   - *Setup*: incluye todas las verificaciones relacionadas al análisis de máximo *delay*, configuración, recuperación y verificación de datos.
